@@ -25,26 +25,51 @@ function __get($atributo){
 function __set($atributo, $valor){
 	$this->atributo = $valor; 
 }
- 
+
+
+function validar(){
+	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade AND nm_senha = $this->senha";
+	$aux = Conexao::executar($sql);
+	if(mysql_num_rows($aux)==1){
+		$usuario = mysql_fetch_object($aux);
+		$_SESSION['identidade']=$usuario->cd_identidade;
+		$_SESSION['nome'] =$usuario->nm_usuario;
+		$_SESSION['guerra'] =$usuario->nm_guerra;
+		$_SESSION['nivel']=$usuario->nm_acesso;
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function inserir(){
+	try{
 	 //$sql = "call inserirUsuario('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')";
 	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade";
-	if(mysql_num_rows(Conexao::executar($sql))<1){ //verificar se já não existe a id no banco de dados
+	if(mysql_num_rows(Conexao::executar($sql))==0){ //verificar se já não existe a id no banco de dados
 		$sql = "INSERT INTO usuario (cd_identidade, nm_usuario, nm_guerra, nm_senha, nm_acesso, cd_setor) ";
 		$sql .= "VALUES ('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')"; 
 		Conexao::executar($sql);
 		return "Cadastro realizado com sucesso!";
 	 }else{
-		return "Identidade já cadastrada!!";
+		return "Identidade j� cadastrada!!";
 	 }
+	}catch(Exception $ex){
+		return "Erro ao inserir o usu�rio";
+	}
 }
 
 static function editar($id){
+	try{
 	$sql = "SELECT * FROM usuario WHERE cd_identidade = $id";
  	return mysql_fetch_object(Conexao::executar($sql));
+	}catch(Exception $ex){
+		return "Erro ao selecionar o cadastro";
+	}
 }
  
 function atualizar(){
+	try{
 	//$sql = "call atualizarUsuario('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')";
 	$sql  = "UPDATE usuario SET ";
 	$sql .= "cd_identidade = $this->identidade, ";
@@ -56,6 +81,9 @@ function atualizar(){
 	$sql .= "WHERE cd_identidade = $this->identidade";
 	Conexao::executar($sql);
 	return "Cadastro atualizado com sucesso!";
+	}catch(Exception $ex){
+		return "Erro ao atualizar o cadastro.";
+	}
 }
  
 function excluir(){
