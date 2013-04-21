@@ -1,0 +1,17 @@
+
+use siscmex;
+
+
+create procedure inserirUsuario(
+in cd int,
+in nome varchar(30),
+in setor int);
+
+begin
+
+insert into USUARIO (cd_identidade, nm_usuario, cd_setor)
+values (cd, nome, setor);
+
+end $$
+
+delimiter;

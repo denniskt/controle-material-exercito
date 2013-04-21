@@ -1,0 +1,49 @@
+ 
+    body {
+	margin: 0 auto;
+	background: #f5f5f5;
+	background: #f5f5f5;
+	width: 800px;
+	font-family: arial, sans-serif;
+	font-size: 12px;
+    }
+   
+div
+{
+	padding: 10;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #999;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 0 0 1em 0;
+  caption-side: top;
+}
+
+caption, td, th {
+  padding: 0.3em;
+}
+
+th, td {
+  border-bottom: 1px solid #999;
+}
+
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.header {
+	background-color: #063;
+	color: #FFF;
+}
+.footer {
+	color: #FFF;
+	background-color: #666;
+}
+.menu {
+	background-color: #EFEFEF;
+}
+
