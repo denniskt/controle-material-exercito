@@ -1,5 +1,6 @@
 <?php
 	require_once("classes/usuario.class.php");
+		
 	if(isset($_GET)){
 		$usuario = Usuario::editar($_GET["id"]);
 	}
@@ -11,7 +12,7 @@
 	$usuario = Usuario::editar($_GET["id"]);
 }
 ?>
-<?php include("_header.php")?>
+<?php include("_header.php"); ?>
 <head>
 <title>SISCMEX - Alterar Cadastro Usuário</title>
 </header>

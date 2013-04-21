@@ -46,16 +46,16 @@ function inserir(){
 	try{
 	 //$sql = "call inserirUsuario('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')";
 	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade";
-	if(mysql_num_rows(Conexao::executar($sql))>0){ //verificar se já nao existe a id no banco de dados
-		return "Identidade já cadastrada!!";
-	 }else{
+	if(mysql_num_rows(Conexao::executar($sql))==0){ //verificar se jÃ¡ nÃ£o existe a id no banco de dados
 		$sql = "INSERT INTO usuario (cd_identidade, nm_usuario, nm_guerra, nm_senha, nm_acesso, cd_setor) ";
 		$sql .= "VALUES ('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')"; 
 		Conexao::executar($sql);
 		return "Cadastro realizado com sucesso!";
+	 }else{
+		return "Identidade já cadastrada!!";
 	 }
 	}catch(Exception $ex){
-		return $ex;
+		return "Erro ao inserir o usuário";
 	}
 }
 
