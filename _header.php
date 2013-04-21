@@ -10,8 +10,7 @@ nome: <?php echo $_SESSION['nome']?><Br />
 nivel: <?php echo $_SESSION['nivel']?><Br />
   <p>Novas Solictações</p>
   <p><a href="usuario_cadastrar.php">Cadastrar Novo Usu&aacute;rio</a></p>
-  <p><a href="usuario_editar.php?id=125">Alterar Cadastro id125</a></p>
-  <p>    Excluir Usu&aacute;rio</p>
-  <p> <a href="usuario.php">Pesquisar Usu&aacute;rio
-  </a></p>
+  <p><a href="usuario_editar.php?id=<?php echo $_SESSION['identidade']?>">Alterar Meu Cadastro</a></p>
+  <p><a href="usuario.php">Excluir Usu&aacute;rio</a></p>
+  <p><a href="usuario.php">Pesquisar Usu&aacute;rio</a></p>
 </div>

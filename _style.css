@@ -5,7 +5,7 @@
 	background: #f5f5f5;
 	width: 800px;
 	font-family: arial, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
     }
    
 div
@@ -48,8 +48,8 @@ caption {
 }
 
 .mensagem {
-	background-color: #FF0000;
-	color: #FFF;
+	color: #F00;
+	font-weight: bolder;
 }
 
 .slidingDiv {
