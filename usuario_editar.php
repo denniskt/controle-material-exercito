@@ -4,9 +4,11 @@
 		$usuario = Usuario::editar($_GET["id"]);
 	}
 	if(isset($_POST["editar_usuario"])){
+		
 	$usuario = new Usuario($_POST["identidade"],$_POST["senha"],$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"]);
 	$msg = $usuario->atualizar();
 	Usuario::editar($_POST["identidade"]);
+	$usuario = Usuario::editar($_GET["id"]);
 }
 ?>
 <?php include("_header.php")?>
@@ -23,18 +25,18 @@
   <p>identidade:</p>
   <p>
   <label for="identidade"></label>
-  <input name="identidade" type="text" id="identidade" value="<?php echo $usuario->cd_identidade; ?>" maxlength="11" />
+  <input name="identidade" type="text" id="identidade" value="<?php echo $usuario->cd_identidade; ?>" maxlength="11" readonly />
   </p>
   <p>senha:</p>
   <p>
     <label for="senha"></label>
-    <input name="senha" type="text" id="senha" value="<?php echo $usuario->nm_senha; ?>" maxlength="8" />
+    <input name="senha" type="text" id="senha" value="<?php echo $usuario->nm_senha;?>" maxlength="8" />
     <label></label>
   </p>
   <p>nome completo:</p>
   <p>
     <label for="nome"></label>
-    <input name="nome" type="text" id="nome" value="<?php echo $usuario->nm_usuario; ?>" maxlength="30" />
+    <input name="nome" type="text" id="nome" value="<?php  echo $usuario->nm_usuario; ?>" maxlength="30" />
   </p>
   <p>nome guerra
     <label for="nomeguerra"></label>
@@ -48,7 +50,7 @@
   <p>
   <select name="setor" id="setor">
 		<option  value="-1">-</option>
-        <?php 
+        <?php  
 		$aux = $usuario->cd_setor;
 		$sql = "SELECT * FROM setor ORDER BY nm_setor";
 		$resultado = Conexao::executar($sql);

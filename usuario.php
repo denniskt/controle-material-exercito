@@ -1,6 +1,5 @@
 <?php
 require_once("classes/usuario.class.php");
-session_start();
 
 if(isset($_POST["procurar_usuario"])){
 	$usuario = new Usuario($_POST["identidade"],NULL,$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"]);
