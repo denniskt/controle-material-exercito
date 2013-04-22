@@ -1,10 +1,12 @@
-<?php session_start() ?>
-<head>
+<?php session_start() ?><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"text/css" 
 </head>
+
 <link type="text/css" rel="stylesheet" href="_style.css" />
 <body>
- SISCOMEX - Sistema de Controle de Material do Ex&eacute;rcito
+ <p>&nbsp;</p>
+ <p>SISCOMEX - Sistema de Controle de Material do Ex&eacute;rcito
+ </p>
 <form id="login" name="login" method="post" action="usuario_validar.php">
   <p>
     <label for="identidade"></label>
@@ -22,7 +24,7 @@
     <input name="login" type="submit" id="login" value="Login" />
   </p>
 </form>
-<p><?php echo $_SESSION['mensagem']?></p>
+<p><?php if(isset($_SESSION['mensagem'])){ echo $_SESSION['mensagem']; }?></p>
 <table width="300" border="1" cellspacing="0" cellpadding="0">
   <tr>
     <td>Usu&aacute;rios Testes</td>

@@ -11,7 +11,7 @@ if(isset($_POST["listar"])){
 ?>
 <?php include("_header.php")?>
 <header>
-<title>Untitled Document</title>
+<title>Procurar Cadastro Usuário</title>
 </header>
 <div class="conteudo">
 
