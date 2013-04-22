@@ -1,8 +1,7 @@
 <?php session_start() ?>
 <link type="text/css" rel="stylesheet" href="_style.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<div class="header">Bem Vindo <b><?php echo $_SESSION['guerra']?></b> ao SISCOMEX | Minha Solicitações | Sair
-</div>
+<div class="header">Bem Vindo <b><?php echo $_SESSION['guerra']?></b> ao SISCOMEX | Minha Solicitações | <a href="usuario_sair.php">Sair</a> </div>
 <div class="menu">
 nome guerra: <?php echo $_SESSION['guerra']?><Br />
 identidade: <?php echo $_SESSION['identidade']?><Br />

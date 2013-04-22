@@ -61,7 +61,8 @@ function inserir(){
 
 static function editar($id){
 	try{
-	$sql = "SELECT * FROM usuario WHERE cd_identidade = $id";
+	$sql = "SELECT * FROM usuario u, setor s WHERE cd_identidade = $id AND u.cd_setor = s.cd_setor";
+	Conexao::executar($sql);
  	return mysql_fetch_object(Conexao::executar($sql));
 	}catch(Exception $ex){
 		return "Erro ao selecionar o cadastro";
@@ -86,10 +87,16 @@ function atualizar(){
 	}
 }
  
-function excluir(){
-	$sql = "call atualizarUsuario('$this->identidade')";
-	return Conexao::executar($sql);
+static function excluir($id){
+	try{
+		$sql = "DELETE FROM usuario WHERE cd_identidade = $id";
+		Conexao::executar($sql);
+ 		return "Cadastro de Usuário exluido com sucesso!";
+	}catch(Exception $ex){
+		return "Erro ao excluir o cadastro";
+	}
 }
+
  
 static function listar(){
 	$sql = "SELECT * FROM usuario u, setor s WHERE u.cd_setor = s.cd_setor ORDER BY nm_usuario";
