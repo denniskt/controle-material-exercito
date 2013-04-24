@@ -27,7 +27,7 @@ class Conexao{
 		}
 		
 		//Fechando a conexao
-		//mysql_close($id_conexao);
+		mysql_close($id_conexao);
 		
 		// Retornando o resultado para quem chamou o método
 		return $resultado;
