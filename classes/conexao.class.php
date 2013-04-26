@@ -6,31 +6,31 @@ class Conexao{
 	private static $senha = "";
 	private static $banco = "siscmex";
 
+	
 	static function executar($sql){
+		try{
+			$id_conexao = mysql_connect(self::$servidor, self::$usuario, self::$senha);
+				if(!$id_conexao) {
+					throw new Exception("Falha ao conectar ao SGBD.<br>Problema: [". mysql_error() ."]");
+			}
 		
-		// Conectar ao banco e armazenar id da conexao
-		$id_conexao = mysql_connect(self::$servidor, self::$usuario, self::$senha);
-		// self = por ser static da classe
-		if(! $id_conexao) {
-			throw new Exception("Falha ao conectar ao SGBD. Problema: [". mysql_error() ."]");
+			if(!mysql_select_db(self::$banco,$id_conexao)){
+				throw new Exception("Falha ao selecionar o banco.<br>Problema: [". mysql_error() ."]");
+			}
+		
+			$resultado = mysql_query($sql);
+			if(! $resultado){
+				throw new Exception("Falha ao enviar instrução SQL ao banco.<br>Problema: [". mysql_error() ."]");
+			}
+		
+			return $resultado;
+		
+		}catch (Exception $ex){
+			return $ex;
 		}
-		
-		// Selecionar o banco do SGBD
-		if(!mysql_select_db(self::$banco,$id_conexao)){
-			throw new Exception("Falha ao selecionar o banco. Problema: [". mysql_error() ."]");
-		}
-		
-		// Enviar intrução SQL ao banco selecionado
-		$resultado = mysql_query($sql);
-		if(! $resultado){
-			throw new Exception("Falha ao enviar instrução SQL ao banco. Problema: [". mysql_error() ."]");
-		}
-		
-		//Fechando a conexao
-		//mysql_close($id_conexao);
-		
-		// Retornando o resultado para quem chamou o método
-		return $resultado;
-	}		
+	}	
+	static function desconectar(){
+		mysql_close($id_conexao);	
+	}
 }
 ?>
