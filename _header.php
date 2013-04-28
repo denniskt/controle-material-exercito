@@ -1,4 +1,6 @@
 <?php session_start() ?>
+<script type="text/javascript" src="./js/jquery.min.js" ></script>
+<script type="text/javascript" src="./js/jquery.validate.js" ></script>
 <link type="text/css" rel="stylesheet" href="_style.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <div class="header">Bem Vindo <b><?php echo $_SESSION['guerra']?></b> ao SISCOMEX | Minha Solicitações | <a href="usuario_sair.php">Sair</a> </div>

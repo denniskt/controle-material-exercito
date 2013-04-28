@@ -4,7 +4,7 @@ if(!isset($_SESSION['nome'])){
 }
 
 if($_SESSION['nivel'] > $permiteacesso){
-	header("location:./acessonegado.php");
+	header("location:./home.php");
 }
 ?>
 </body>
