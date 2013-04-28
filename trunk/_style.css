@@ -47,7 +47,7 @@ caption {
 }
 
 .header {
-	background-color: #063;
+	background-color: #000;
 	color: #FFF;
 	padding: 0;
 }
@@ -83,8 +83,8 @@ caption {
 }
 
 input, select{
-border:1px solid #dbdbdb;
-padding:8px;
+	border:1px solid #dbdbdb;
+	padding:8px;
 }
 
 .msg {
