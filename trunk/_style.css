@@ -1,10 +1,9 @@
 body {
 	margin: 0 auto;
-	background: #f5f5f5;
-	background: #f5f5f5;
 	width: 800px;
 	font-family: arial, sans-serif;
-	font-size: 14px;
+	font-size: 15px;
+	background-color: #FFFFFF;
     }
 	
 a:link {
@@ -79,6 +78,16 @@ caption {
 }
 
 .mensagem {
+	color: #F00;
+	font-weight: bolder;
+}
+
+input, select{
+border:1px solid #dbdbdb;
+padding:8px;
+}
+
+.msg {
 	color: #F00;
 	font-weight: bolder;
 }
