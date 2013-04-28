@@ -1,13 +1,23 @@
 <?php 
 require_once("classes/conexao.class.php");
 
-	class Setor {
-	private $cd_setor;
-	private $nm_setor;
+	class Usuario {
+	private $identidade;
+	private $senha;
+	private $nomecompleto;
+	private $nomeguerra;
+	private $setor;
+	private $nivelacesso;
+	private $ativo;
   
-function __construct($cd_setor, $nm_setor){
-	$this->cd_setor = $cd_setor;
-	$this->nm_setor = $nm_setor;
+function __construct($identidade, $senha, $nomecompleto, $nomeguerra, $setor, $nivelacesso, $ativo){
+	$this->identidade = $identidade;
+	$this->senha = $senha;
+	$this->nomecompleto = $nomecompleto;
+	$this->nomeguerra = $nomeguerra;
+	$this->setor = $setor;
+	$this->nivelacesso = $nivelacesso;
+	$this->ativo = $ativo;
 }
 
 function __get($atributo){
@@ -19,104 +29,113 @@ function __set($atributo, $valor){
 }
 
 
-/* function validar(){
-	$sql = "SELECT * FROM ususario WHERE cd_identidade = $this->identidade AND nm_senha = $this->senha";
+function validar(){
+	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade AND nm_senha = $this->senha";
 	$aux = Conexao::executar($sql);
 	if(mysql_num_rows($aux)==1){
 		$usuario = mysql_fetch_object($aux);
-		$_SESSION['identidade']=$usuario->cd_identidade;
-		$_SESSION['nome'] =$usuario->nm_usuario;
-		$_SESSION['guerra'] =$usuario->nm_guerra;
-		$_SESSION['nivel']=$usuario->nm_acesso;
-		return true;
+		if($usuario->cd_ativo==1){
+			$_SESSION['identidade']=$usuario->cd_identidade;
+			$_SESSION['nome'] =$usuario->nm_usuario;
+			$_SESSION['guerra'] =$usuario->nm_guerra;
+			$_SESSION['nivel']=$usuario->cd_acesso;
+			return true;
+		}else{
+			$_SESSION['mensagem']="Usuário inativo";
+			return false;
+		}
 	}else{
+		$_SESSION['mensagem']="Usuário ou senha inválidos!<br>caso não lembre sua senha favor entrar em contato com o responsável do Almoxarifado.";
 		return false;
 	}
-} */
+}
 
 function inserir(){
-	try{
-	 //$sql = "call inserirUsuario('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')";
-	$sql = "SELECT * FROM setor WHERE cd_setor = $this->cd_setor";
-	if(mysql_num_rows(Conexao::executar($sql))==0){ //verificar se jÃ¡ nÃ£o existe a id no banco de dados
-		$sql = "INSERT INTO setor (cd_setor, nm_setor) ";
-		$sql .= "VALUES ('$this->cd_setor', '$this->nm_setor')"; 
-		Conexao::executar($sql);
-		return "Cadastro atualizado com sucesso!";
-	 }else{
-		return "Erro ao atualizar o cadastro.";
-	 }
-	}catch(Exception $ex){
-		return "Erro ao cadastrar o setor, verifique os campos preenchidos";
+	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade";
+	if(mysql_num_rows(Conexao::executar($sql))>0){
+		return "Identidade Militar já cadastrada!!";
+	}else{
+		$sql = "INSERT INTO usuario (cd_identidade, nm_usuario, nm_guerra, sg_setor, nm_senha, cd_acesso) ";
+		$sql .= "VALUES ('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->setor', '$this->senha', '$this->nivelacesso')";
+		$resultado = Conexao::executar($sql);
+		if($resultado==1){
+			return "Cadastro realizado com sucesso!";
+		}else{
+			return $resultado;
+		}
 	}
 }
 
 static function editar($id){
-	try{
-	$sql = "SELECT * FROM setor WHERE cd_setor = $cd_setor";
- 	return mysql_fetch_object(Conexao::executar($sql));
-	}catch(Exception $ex){
-		return "Erro ao selecionar o cadastro";
-	}
+	$sql = "SELECT * FROM usuario u, setor s, nivel_acesso n WHERE n.cd_acesso = u.cd_acesso AND cd_identidade = $id AND u.sg_setor = s.sg_setor";
+	return mysql_fetch_object(Conexao::executar($sql));
 }
  
 function atualizar(){
-	try{
-		//$sql = "call atualizarUsuario('$this->identidade', '$this->nomecompleto', '$this->nomeguerra', '$this->senha', '$this->nivelacesso', '$this->setor')";
-		$sql  = "UPDATE usuario SET ";
-		$sql .= "cd_identidade = $this->identidade, ";
-		$sql .= "nm_usuario = '$this->nomecompleto', ";
-		$sql .= "nm_guerra = '$this->nomeguerra', ";
-		$sql .= "nm_senha = '$this->senha', ";
-		$sql .= "nm_acesso = $this->nivelacesso, ";
-		$sql .= "cd_setor = $this->setor ";
-		$sql .= "WHERE cd_identidade = $this->identidade";
-		Conexao::executar($sql);
+	$sql  = "UPDATE usuario SET ";
+	$sql .= "cd_identidade = $this->identidade, ";
+	$sql .= "nm_usuario = '$this->nomecompleto', ";
+	$sql .= "nm_guerra = '$this->nomeguerra', ";
+	$sql .= "nm_senha = '$this->senha', ";
+	$sql .= "cd_acesso = $this->nivelacesso, ";
+	$sql .= "sg_setor = '$this->setor', ";
+	$sql .= "cd_ativo = $this->ativo ";
+	$sql .= "WHERE cd_identidade = $this->identidade";
+	$resultado = Conexao::executar($sql);
+	if($resultado==1){
 		return "Cadastro atualizado com sucesso!";
-	}catch(Exception $ex){
-		return "Erro ao atualizar o cadastro.";
+	}else{
+		return $resultado;
 	}
 }
  
-function excluir(){
-	$sql = "call atualizarUsuario('$this->identidade')";
-	return Conexao::executar($sql);
+/* static function excluir($id){
+	try{
+		$sql = "DELETE FROM usuario WHERE cd_identidade = $id";
+		Conexao::executar($sql);
+ 		return "Cadastro de Usuário exluido com sucesso!";
+	}catch(Exception $ex){
+		return "Erro ao excluir o cadastro";
+	}
+} */
+
+static function desativar($id){
+	$sql  = "UPDATE usuario SET cd_ativo = 0 WHERE cd_identidade = $id";
+	$resultado = Conexao::executar($sql);
+	if($resultado==1){
+		return "Cadastro desativado com sucesso!";
+	}else{
+		return $resultado;
+	}
 }
  
 static function listar(){
-	$sql = "SELECT * FROM usuario u, setor s WHERE u.cd_setor = s.cd_setor ORDER BY nm_usuario";
+	$sql = "SELECT * FROM usuario u, setor s, nivel_acesso n WHERE u.sg_setor = s.sg_setor AND u.cd_acesso = n.cd_acesso ORDER BY nm_usuario";
 	return Conexao::executar($sql);
 }
   
 function procurar(){
-	$sql = "SELECT * FROM usuario u, setor s WHERE u.cd_setor = s.cd_setor AND";
+	$sql = "SELECT * FROM usuario u, setor s, nivel_acesso n WHERE u.sg_setor = s.sg_setor AND u.cd_acesso = n.cd_acesso AND";
 	if($this->identidade<>NULL){
 		$sql .= " u.cd_identidade = '$this->identidade' AND";
 	}
 	if($this->nomecompleto<>NULL){
 		$sql .= " u.nm_usuario LIKE '%$this->nomecompleto%' AND";
 	}
-	if($this->nomeguerra<>NULL){
+	 if($this->nomeguerra<>NULL){
 		$sql .= " u.nm_guerra LIKE '%$this->nomeguerra%' AND";
 	}
-	if($this->setor<>-1){
+	if($this->setor<>NULL){
 		$sql .= " u.cd_setor = $this->setor AND";
 	} 
 	if($this->nivelacesso<>NULL){
-		$sql .= " u.nm_acesso = $this->nivelacesso AND";
-	/* }
-	if($_POST['ativo']=="Sim"){
-		$sql .= " u.ch_ativo_usuario = '{$_POST['ativo']}'";
-	}else if($_POST['ativo']=="Nao"){
-		$sql .= " u.ch_ativo_usuario = '{$_POST['ativo']}'"; */
+		$sql .= " u.cd_acesso = $this->nivelacesso AND";
 	}
-			
-	if(substr($sql, -3) == "AND"){
-		$sql = substr($sql, 0, - 3);
-	}	
+	$sql .= " u.cd_ativo = $this->ativo"; 
 	$sql .= " ORDER BY nm_usuario";
- 	return Conexao::executar($sql);
-}
+
+	return Conexao::executar($sql);
+	}
 
 }
 ?>

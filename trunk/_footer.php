@@ -7,6 +7,7 @@ if($_SESSION['nivel'] > $permiteacesso){
 	header("location:./acessonegado.php");
 }
 ?>
+</div>
 </body>
 <div class="footer">Fim da p&aacute;gina</div>
 </html>
