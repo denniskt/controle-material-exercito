@@ -1,6 +1,6 @@
 <?php session_start() ?>
 <head>
-<link type="text/css" rel="stylesheet" href="_style.css" />
+<link type="text/css" rel="stylesheet" href="css/css.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>SISCOMEX</title>
 <script type="text/javascript" src="./js/jquery.min.js" ></script>

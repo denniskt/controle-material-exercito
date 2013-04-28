@@ -1,0 +1,94 @@
+body {
+	margin: 0 auto;
+	width: 800px;
+	font-family: arial, sans-serif;
+	font-size: 15px;
+	background-color: #FFFFFF;
+    }
+	
+a:link {
+	text-decoration: none;
+} 
+a:visited {
+	text-decoration: none;
+} 
+a:active {
+	text-decoration: none;
+} 
+a:hover {
+	text-decoration: none;
+	color: #006600;
+} 
+   
+div {
+	padding: 10;
+	}
+	
+
+table {
+  width: 100%;
+  border: 1px solid #999;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 0 0 1em 0;
+  caption-side: top;
+}
+
+caption, td, th {
+  padding: 0.3em;
+}
+
+th, td {
+  border-bottom: 1px solid #999;
+}
+
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.header {
+	background-color: #000;
+	color: #FFF;
+	padding: 10;
+}
+
+.header a:link {
+	text-decoration: none;
+	color: #FFFFFF;
+} 
+.header a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+} 
+.header a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+} 
+.header a:hover {
+	text-decoration: none;
+	color: #009900;
+} 
+
+.footer {
+	color: #FFF;
+	background-color: #666;
+}
+.menu {
+	background-color: #EFEFEF;
+}
+
+.mensagem {
+	color: #F00;
+	font-weight: bolder;
+}
+
+input, select{
+	border:1px solid #dbdbdb;
+	padding:8px;
+}
+
+.msg {
+	color: #F00;
+	font-weight: bolder;
+}
