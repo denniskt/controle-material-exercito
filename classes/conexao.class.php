@@ -20,7 +20,7 @@ class Conexao{
 		
 			$resultado = mysql_query($sql);
 			if(! $resultado){
-				throw new Exception("Falha ao enviar instrução SQL ao banco.<br>Problema: [". mysql_error() ."]");
+				throw new Exception("Falha ao enviar instru�ao SQL ao banco.<br>Problema: [". mysql_error() ."]");
 			}
 		
 			return $resultado;

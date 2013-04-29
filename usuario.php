@@ -16,13 +16,29 @@ $permiteacesso=0;
 <?php include("_header.php")?>
 <header>
 <title>Procurar Cadastro Usuário</title>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#form_procurar_usuario").validate({
+	rules: {
+    	identidade: {
+			number: true,
+			}
+		},
+	messages: {
+    	identidade: {
+			number: " Digite somente números",
+			}
+		}
+});
+});
+</script>
 </header>
 <div class="conteudo">
 
 <body>
 <h1>Procurar Cadastro Usu&aacute;rio
 </h1>
-<form id="form1" name="form1" method="post" action="">
+<form id="form_procurar_usuario" name="form_procurar_usuario" method="post" action="">
 <p>identidade:<br>
 <label for="identidade"></label>
 <input name="identidade" type="text" id="identidade" maxlength="11" />
@@ -75,9 +91,13 @@ Ativos</p>
 <input type="submit" name="listar" id="listar" value="Listar Todos os Usu&aacute;rios">
 </p>
 </form>
-<p><?php if(isset($lista)){ ?>
+<p>
+<?php 
+if(isset($lista)){ 
+	if(mysql_num_rows($lista)){ 
+?>
 <table width='100%' border='1'>
-	<tr><td>identidade</td><td>nome</td><td>guera</td><td>setor</td><td>nivel de acesso</td><td>Ativo</td><td>Opções</td></tr>
+	<tr><td>identidade</td><td>nome</td><td>guerra</td><td>setor</td><td>nivel de acesso</td><td>Ativo</td><td>Opções</td></tr>
 	<?php
 	while($linha = mysql_fetch_array($lista)){ ?>
 	<tr>
@@ -86,12 +106,12 @@ Ativos</p>
 		<td><?php echo $linha['nm_guerra'] ?></td>
 		<td><?php echo $linha['nm_setor'] ?></td>
 		<td><?php echo $linha['nm_acesso']?></td>
-		<td><?php if($linha['cd_ativo']==0){echo "Não";}else{ echo "Sim";} ?></td>
+		<td><?php if($linha['cd_ativo_usuario']==1){echo "Sim";}else{ echo "Não";} ?></td>
 		<td><a href='usuario_editar.php?id=<?php echo $linha['cd_identidade']?>'>[editar]</a> - <a href='usuario_desativar.php?id=<?php echo $linha['cd_identidade']?>'>[excluir]</a></td>
 	</tr>
 	<?php } ?>
 </table>
-<?php } ?>
+<?php }else{echo "<h3>Nenhum resultado encontrado!</h3>"; } }?>
 </p>
 
 </diV>

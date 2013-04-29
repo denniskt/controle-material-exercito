@@ -50,7 +50,7 @@ $("#form_login").validate({
   </p>
 </form>
 <p>
-<p>&nbsp;</p>
+<p></p>
 <table width="300" border="1" cellspacing="0" cellpadding="0">
   <tr>
     <td>Usu&aacute;rios Testes</td>
