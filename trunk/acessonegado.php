@@ -1,5 +1,4 @@
-<?php include("_header.php");
-$permiteacesso=2; ?>
+<?php $permiteacesso=2; include("_header.php"); ?>
 <header>
 <title>SISCMEX - Acesso Negado</title>
 </header>

@@ -1,9 +1,18 @@
 <?php session_start() ?>
 <script type="text/javascript" src="./js/jquery.min.js" ></script>
 <script type="text/javascript" src="./js/jquery.validate.js" ></script>
+<script type="text/javascript" src="./js/jquery.maskedinput.js" ></script>
 
 <link type="text/css" rel="stylesheet" href="./css/css.css" />
 <link type="text/css" rel="stylesheet" href="./css/menu.css" >
+ 
+<?php if(!isset($_SESSION['nome'])){
+	header("location: ./usuario_sair.php");
+}
+
+if($_SESSION['nivel'] > $permiteacesso){
+	header("location: ./acessonegado.php");
+}?>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
@@ -24,18 +33,18 @@
          </li>
          <li class='has-sub '><a href='#'><span>Setor</span></a>
             <ul>
-               <li><a href='#'><span>Cadastrar</span></a></li>
-               <li><a href='#'><span>Alterar</span></a></li>
-               <li><a href='#'><span>Desativar</span></a></li>
-               <li><a href='#'><span>Procurar</span></a></li>
+               <li><a href='./setor_cadastrar.php'><span>Cadastrar</span></a></li>
+               <li><a href='./setor.php'><span>Alterar</span></a></li>
+               <li><a href='./setor.php'><span>Desativar</span></a></li>
+               <li><a href='./setor.php'><span>Procurar</span></a></li>
             </ul>
          </li>
          <li class='has-sub '><a href='#'><span>Fornecedor</span></a>
             <ul>
-               <li><a href='#'><span>Cadastrar</span></a></li>
-               <li><a href='#'><span>Alterar</span></a></li>
-               <li><a href='#'><span>Desativar</span></a></li>
-               <li><a href='#'><span>Procurar</span></a></li>
+               <li><a href='./fornecedor_cadastrar.php'><span>Cadastrar</span></a></li>
+               <li><a href='./fornecedor.php'><span>Alterar</span></a></li>
+               <li><a href='./fornecedor.php'><span>Desativar</span></a></li>
+               <li><a href='./fornecedor.php'><span>Procurar</span></a></li>
             </ul>
          </li>
          <li class='has-sub '><a href='#'><span>Material</span></a>
