@@ -2,7 +2,7 @@ body {
 	margin: 0 auto;
 	width: 800px;
 	font-family: arial, sans-serif;
-	font-size: 15px;
+	font-size: 12px;
 	background-color: #FFFFFF;
     }
 	
@@ -21,6 +21,10 @@ a:hover {
 } 
    
 div {
+	padding: 0;
+	}
+	
+.conteudo {
 	padding: 10;
 	}
 	
@@ -47,25 +51,25 @@ caption {
   font-style: italic;
 }
 
-.header {
+._header {
 	background-color: #000;
 	color: #FFF;
 	padding: 10;
 }
 
-.header a:link {
+._header a:link {
 	text-decoration: none;
 	color: #FFFFFF;
 } 
-.header a:visited {
+._header a:visited {
 	text-decoration: none;
 	color: #FFFFFF;
 } 
-.header a:active {
+._header a:active {
 	text-decoration: none;
 	color: #FFFFFF;
 } 
-.header a:hover {
+._header a:hover {
 	text-decoration: none;
 	color: #009900;
 } 
@@ -83,7 +87,7 @@ caption {
 	font-weight: bolder;
 }
 
-input, select{
+input, select, button{
 	border:1px solid #dbdbdb;
 	padding:8px;
 }
@@ -91,4 +95,43 @@ input, select{
 .msg {
 	color: #F00;
 	font-weight: bolder;
+}
+
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #000;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../imagens/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../imagens/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../imagens/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
 }

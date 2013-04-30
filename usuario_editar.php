@@ -46,8 +46,8 @@ $("#form_editar").validate({
 <div class="conteudo">
 
 <body>
-<h1>Alterar Usu&aacute;rio
-</h1>
+<h2>Alterar Usu&aacute;rio</h2>
+<h1 size="1">
 <form id="form_editar" name="form_editar" method="post" action="">
   <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
   <p>identidade*:<br>
