@@ -118,10 +118,14 @@ function procurar(){
 	if($this->nivelacesso<>NULL){
 		$sql .= " u.cd_acesso = $this->nivelacesso AND";
 	}
+	if($this->ativo<>2){
 	$sql .= " cd_ativo_usuario = $this->ativo"; 
+	}
+	if(substr($sql, -3) == "AND"){
+		$sql = substr($sql, 0, - 3);
+	}
 	$sql .= " ORDER BY nm_usuario";
 	return Conexao::executar($sql);
 	}
-
 }
 ?>
