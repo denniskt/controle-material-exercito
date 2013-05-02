@@ -1,5 +1,7 @@
 <?php
 require_once("classes/setor.class.php");
+
+$permiteacesso=0; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
 		
 if(isset($_GET)){
 	$setor = Setor::editar($_GET["sigla"]);
@@ -7,20 +9,26 @@ if(isset($_GET)){
 if(isset($_POST["desativa_setor"])){
 	$msg = Setor::desativar($_GET["sigla"]);
 }
-	
-$permiteacesso=0;
-
 ?>
-<?php include("_header.php"); ?>
-<head>
-<title>SISCMEX - Desativar Cadastro Setor</title>
-</head>
+
+<?php include("_header.php")?>
+<header>
+<title>SISCMEX - Cadastro/Setor/Desativar</title>
+
+</header>
 <div class="conteudo">
 
 <body>
-<h1>Desativar Cadastro Setor
-</h1>
-<form id="form_desativa" name="form_desativa" method="post" action="">
+<h1>Cadastro/Setor/Desativar</h1>
+<p>
+  <input type=button onClick="location.href='./usuario.php'" value="< Voltar">
+  <button id="botao_desativar">Desativar Cadastro Setor</button>
+<hr size="1">
+</p>
+<h2>Desativar Cadastro Setor</h2>
+<div id="form_desativar">
+
+<form id="form_desativa_setor" name="form_deativar_setor" method="post" action="">
   <table width="300" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="50%">sigla do setor:</td>
@@ -31,14 +39,24 @@ $permiteacesso=0;
       <td><?php  echo $setor->nm_setor; ?></td>
     </tr>
   </table>
-  <p>&nbsp;</p>
-  <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }else{?>
-    <h2>Confirma  a desativa&ccedil;&atilde;o do cadastro do setor?</h2>
+  <h3><?php if(isset($msg)){ echo $msg; 
+  }else{?>
+    Setores com contas desativadas não poderão realizar solicitações de material. <br>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro do setor?</h3>
   <p>
-    <input type="submit" name="desativa_setor" id="desativa_setor" value="Sim" />
+    <input type="submit" name="desativa_setor" id="botaovermelho" value="Sim" />
+    <input type=button onClick="location.href='./usuario.php'" value="Cancelar">
   </p><?php }?>
 </form>
+</div>
+
+
+  
+    
+  </diV>
+  <?php include("_footer.php"); ?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 
-</diV>
-<?php include("_footer.php")?>

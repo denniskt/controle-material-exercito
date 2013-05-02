@@ -7,18 +7,18 @@
 <link type="text/css" rel="stylesheet" href="./css/css.css" />
 <link type="text/css" rel="stylesheet" href="./css/menu.css" >
 
-<script type="text/javascript">
-$(document).ready(function() { 
-        $("#tabela").tablesorter();
-		//.tablesorterPager({container: $("#pager")}); 
-}); 
+<script>
+$(function(){
+  var pagerOptions = {container: $(".pager"), };
+  $("table").tablesorter({widthFixed: true,widgets: ['zebra']})
+    .tablesorterPager(pagerOptions);
+});
 </script>
 
-
+</div> 
 <?php if(!isset($_SESSION['nome'])){
 	header("location: ./usuario_sair.php");
 }
-
 if($_SESSION['nivel'] > $permiteacesso){
 	header("location: ./acessonegado.php");
 }?>
@@ -32,37 +32,13 @@ if($_SESSION['nivel'] > $permiteacesso){
    <li><a href='./home.php'><span>Home</span></a></li>
    <li class='has-sub '><a href='#'><span>Cadastro</span></a>
       <ul>
-         <li class='has-sub '><a href='usuario.php'><span>Usuário</span></a>
-            <ul>
-               <li><a href='./usuario_cadastrar.php'><span>Cadastrar</span></a></li>
-               <li><a href='usuario_antigo.php'><span>Alterar</span></a></li>
-               <li><a href='usuario_antigo.php'><span>Desativar</span></a></li>
-               <li><a href='usuario_antigo.php'><span>Procurar</span></a></li>
-            </ul>
+         <li><a href='usuario.php'><span>Usuário</span></a>
          </li>
-         <li class='has-sub '><a href='#'><span>Setor</span></a>
-            <ul>
-               <li><a href='./setor_cadastrar.php'><span>Cadastrar</span></a></li>
-               <li><a href='./setor.php'><span>Alterar</span></a></li>
-               <li><a href='./setor.php'><span>Desativar</span></a></li>
-               <li><a href='./setor.php'><span>Procurar</span></a></li>
-            </ul>
+         <li><a href='setor.php'><span>Setor</span></a>
          </li>
-         <li class='has-sub '><a href='#'><span>Fornecedor</span></a>
-            <ul>
-               <li><a href='./fornecedor_cadastrar.php'><span>Cadastrar</span></a></li>
-               <li><a href='./fornecedor.php'><span>Alterar</span></a></li>
-               <li><a href='./fornecedor.php'><span>Desativar</span></a></li>
-               <li><a href='./fornecedor.php'><span>Procurar</span></a></li>
-            </ul>
+         <li><a href='fornecedor.php'><span>Fornecedor</span></a>
          </li>
-         <li class='has-sub '><a href='#'><span>Material</span></a>
-            <ul>
-               <li><a href='./material_cadastrar.php'><span>Cadastrar</span></a></li>
-               <li><a href='./material.php'><span>Alterar</span></a></li>
-               <li><a href='./material.php'><span>Desativar</span></a></li>
-               <li><a href='./material.php'><span>Procurar</span></a></li>
-            </ul>
+         <li><a href='material.php'><span>Material</span></a>
          </li>
       </ul>
    </li>
@@ -114,7 +90,6 @@ if($_SESSION['nivel'] > $permiteacesso){
 </ul>
 </div>
 
-<div id='cssmenu'></div>
 
 <div class="menu">
 

@@ -97,7 +97,7 @@ static function desativar($id){
 }
  
 static function listar(){
-	$sql = "SELECT * FROM usuario u, setor s, nivel_acesso n WHERE u.sg_setor = s.sg_setor AND u.cd_acesso = n.cd_acesso ORDER BY nm_usuario";
+	$sql = "SELECT * FROM usuario u, setor s, nivel_acesso n WHERE u.sg_setor = s.sg_setor AND u.cd_acesso = n.cd_acesso AND cd_ativo_usuario=1 ORDER BY nm_usuario ";
 	return Conexao::executar($sql);
 }
   

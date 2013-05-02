@@ -1,34 +1,42 @@
 <?php
-	require_once("classes/usuario.class.php");
-		
-	if(isset($_GET)){
-		$usuario = Usuario::editar($_GET["id"]);
-	}
-	if(isset($_POST["editar_usuario"])){
-		
-	$usuario = new Usuario($_POST["identidade"],md5($_POST["senha"]),$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
+require_once("classes/usuario.class.php");
+
+$permiteacesso=1; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
+
+if(isset($_GET)){
+	$usuario = Usuario::editar($_GET["id"]);
+}
+if(isset($_POST["editar_usuario"])){	
+	$usuario = new Usuario($_POST["identidade"],base64_encode($_POST["senha"]),$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
 	$msg = $usuario->atualizar();
 	Usuario::editar($_POST["identidade"]);
 	$usuario = Usuario::editar($_GET["id"]);
 }
 ?>
-<?php 
-if(!$_GET["id"]){
-	header("location:./usuario_editar.php?id=".$_SESSION['identidade']."");
-}else if($_SESSION['nivel']==0){
-	$permiteacesso=0;
-}else if($_GET["id"] <> $_SESSION['identidade']){
-	header("location:./usuario_editar.php?id=".$_SESSION['identidade']."");
-}else{
-	$permiteacesso=2;
-}
-include("_header.php"); 
-?>
-<head>
-<title>SISCMEX - Alterar Cadastro Usuário</title>
+
+<?php include("_header.php")?>
+<header>
+<title>SISCMEX - Cadastro/Usuário/Editar</title>
+
+</header>
+<div class="conteudo">
+
+<body>
+<h1>Cadastro/Usu&aacute;rio/Editar</h1>
+<p>
+  <input type=button onClick="location.href='./usuario.php'" value="< Voltar">
+  <button id="botao_editar">Editar Cadastro Usu&aacute;rio</button>
+<hr size="1">
+</p>
+
+<p>
+<?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
+
+
+<div id="form_editar">
 <script type="text/javascript">
 $(document).ready(function(){
-$("#form_editar").validate({
+$("#form_editar_usuario").validate({
 	rules: {
     	identidade: {
 			number: true,
@@ -41,22 +49,16 @@ $("#form_editar").validate({
 	}
 });
 });
-</script>
-</header>
-<div class="conteudo">
-
-<body>
-<h2>Alterar Usu&aacute;rio</h2>
-<h1 size="1">
-<form id="form_editar" name="form_editar" method="post" action="">
-  <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
+</script>	
+<h2>Editar Cadastro Usuário</h2>
+<form id="form_editar_usuario" name="form_editar_usuario" method="post" action="">
   <p>identidade*:<br>
   <label for="identidade"></label>
   <input name="identidade" type="text" id="identidade" value="<?php echo $usuario->cd_identidade; ?>" maxlength="11" readonly />
   </p>
   <p>senha*:<br>
     <label for="senha"></label>
-    <input name="senha" type="password" id="senha" value="<?php echo $usuario->nm_senha;?>" maxlength="8" />
+    <input name="senha" type="text" id="senha" value="<?php echo base64_decode($usuario->nm_senha);?>" maxlength="8" />
     <label></label>
   </p>
   <p>nome completo*:<br>
@@ -105,15 +107,25 @@ $("#form_editar").validate({
   </select>
     
   </p>
-  <p>Ativo:<br>
+  <p>ativo: 
   	<input type="hidden" name="ativo" value="0" />
     <input name="ativo" type="checkbox" id="ativo" value="1" <?php  if($usuario->cd_ativo_usuario==1){ echo "checked"; } ?>/>
     <label for="ativo"></label>
   </p>
-  <p>&nbsp;</p>
   <p>
     <input type="submit" name="editar_usuario" id="editar_usuario" value="Editar" />
+    <input type=button onClick="location.href='./usuario.php'" value="Cancelar">
   </p>
 </form>
-</diV>
-<?php include("_footer.php")?>
+</div>
+
+
+  
+    
+  </diV>
+  <?php include("_footer.php"); ?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+

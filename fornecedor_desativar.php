@@ -1,26 +1,34 @@
 <?php
 require_once("classes/fornecedor.class.php");
-		
+
+$permiteacesso=0; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
+
 if(isset($_GET)){
 	$fornecedor = Fornecedor::editar($_GET["cnpj"]);
 }
 if(isset($_POST["desativa_fornecedor"])){
 	$msg = Fornecedor::desativar($_GET["cnpj"]);
 }
-	
-$permiteacesso=0;
 
-?>
-<?php include("_header.php"); ?>
-<head>
-<title>SISCMEX - Desativar Cadastro Fornecedor</title>
-</head>
+include("_header.php")?>
+<header>
+<title>SISCMEX - Cadastro/Fornecedor/Desativar</title>
+
+</header>
 <div class="conteudo">
 
 <body>
-<h1>Desativar Cadastro Fornecedor
-</h1>
-<form id="form_desativa" name="form_desativa" method="post" action="">
+<h1>Cadastro/Fornecedor/Desativar</h1>
+<p>
+  <input type=button onClick="location.href='./fornecedor.php'" value="< Voltar">
+  <button id="botao_desativar">Desativar Cadastro Fornecedor</button>
+<hr size="1">
+</p>
+
+<h2>Desativar Cadastro Fornecedor</h2>
+<div id="form_desativar">
+
+<form id="form_desativa_fornecedor" name="form_desativar_fornecedor" method="post" action="">
   <table width="300" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="50%">cnpj:</td>
@@ -47,14 +55,23 @@ $permiteacesso=0;
       <td><?php  echo $fornecedor->nm_ramo_ativ; ?></td>
     </tr>
   </table>
-  <p>&nbsp;</p>
-  <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }else{?>
-    <h2>Confirma  a desativa&ccedil;&atilde;o do cadastro do fornecedor?</h2>
+  <h3><?php if(isset($msg)){ echo $msg; 
+  }else{?>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro do fornecedor??</h3>
   <p>
-    <input type="submit" name="desativa_fornecedor" id="desativa_fornecedor" value="Sim" />
+    <input type="submit" name="desativa_fornecedor" id="botaovermelho" value="Sim" />
+    <input type=button onClick="location.href='./fornecedor.php'" value="Cancelar">
   </p><?php }?>
 </form>
+</div>
+
+
+  
+    
+  </diV>
+  <?php include("_footer.php"); ?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 
-</diV>
-<?php include("_footer.php")?>

@@ -12,7 +12,6 @@ if(isset($_POST["procurar_usuario"])){
 	$usuario = new Usuario($_POST["identidade"],NULL,$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
 	//$lista = $usuario->procurar();
 }
-
 ?>
 
 <?php include("_header.php")?>
@@ -23,7 +22,7 @@ if(isset($_POST["procurar_usuario"])){
 <div class="conteudo">
 
 <body>
-<h1>Cadastro/Usu&aacute;rios</h1>
+<h1>Cadastro/Usuário</h1>
 <p>
   <button id="botao_cadastrar">Cadastrar Novo Usu&aacute;rio</button>
   <button id="botao_procurar">Procurar</button>
@@ -173,7 +172,7 @@ $("#form_procurar_usuario").validate({
 });
 });
 </script>
-<h2>Usuario/Procurar</h2>
+<h2>Procurar Cadastro Usuário</h2>
 <form id="form_procurar_usuario" name="form_procurar_usuario" method="post" action="">
 <p>identidade:<br>
 <label for="identidade"></label>
@@ -229,7 +228,7 @@ $("#form_procurar_usuario").validate({
 <input type="submit" name="procurar_usuario" id="procurar_usuario" value="Procurar" />
 <input type="reset" value="Limpar Campos">
 </p>
-</form>
+</form><hr size="1">
 </div>
 
 
@@ -245,7 +244,7 @@ if(isset($lista)){
 	if(mysql_num_rows($lista)){ 
 ?>
 <table id="tabela" class="tablesorter" width='100%'><thead>
-	<tr><th>identidade</th><th>nome</th><th>guerra</th><th>setor</th><th>nivel de acesso</th><th>Ativo</th><th>Op&ccedil;&otilde;es</th></tr></thead> 
+	<tr><th >identidade</th><th >nome completo</th><th >nome de guerra</th><th >setor</th><th >nivel acesso</th><th>ativo</th><th align="center" >op&ccedil;&otilde;es</th></tr></thead> 
 	<tbody><?php
 	while($linha = mysql_fetch_array($lista)){ ?>
 	 <tr>
@@ -255,11 +254,25 @@ if(isset($lista)){
 		<td><?php echo $linha['nm_setor'] ?></td>
 		<td><?php echo $linha['nm_acesso']?></td>
 		<td><?php if($linha['cd_ativo_usuario']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td><a href='usuario_editar.php?id=<?php echo $linha['cd_identidade']?>'><img src="imagens/icone_editar.png"> editar</a> <a href='usuario_desativar.php?id=<?php echo $linha['cd_identidade']?>'><img src="imagens/inativo.png" > excluir</a></td>
+		<td align="center"><a href='usuario_editar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/icone_editar.png"> editar</a> <a href='usuario_desativar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/inativo.png" > desativar</a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>
-
+<div id="pager" class="pager" >
+ <form>
+  <img border=0 src="./imagens/navtabela1.png" class="first">
+  <img border=0 src="./imagens/navtabela2.png" class="prev">
+  <input type="text" class="pagedisplay" id="pad0" size="8" readonly>
+  <img border=0 src="./imagens/navtabela3.png" class="next">
+  <img border=0 src="./imagens/navtabela4.png" class="last">
+  <select id="pad0" class="pagesize">
+   <option selected="selected" value="10">10</option>
+   <option value="20">20</option>
+   <option value="30">30</option>
+   <option value="50">50</option>
+  </select>
+ </form>
+</div>
 
 <p>
    <?php }else{echo "<h3>Nenhum resultado encontrado!</h3>"; } }?>
