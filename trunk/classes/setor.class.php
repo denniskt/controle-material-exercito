@@ -64,19 +64,26 @@ static function desativar($sigla){
 }
  
 static function listar(){
-	$sql = "SELECT * FROM setor ORDER BY nm_setor";
+	$sql = "SELECT * FROM setor WHERE cd_ativo_setor=1 ORDER BY nm_setor";
 	return Conexao::executar($sql);
 }
   
 function procurar(){
-	$sql = "SELECT * FROM setor WHERE ";
+	$sql = "SELECT * FROM setor WHERE";
 	if($this->sigla<>NULL){
 		$sql .= " sg_setor LIKE '%$this->sigla%' AND";
 	}
 	if($this->nome<>NULL){
 		$sql .= " nm_setor LIKE '%$this->nome%' AND";
 	}
+	if($this->ativo<>2){
 	$sql .= " cd_ativo_setor = $this->ativo"; 
+	}
+	if(substr($sql, -3) == "AND"){
+		$sql = substr($sql, 0, - 3);
+	}else if(substr($sql, -5) == "WHERE"){
+		$sql = substr($sql, 0, - 5);
+	}
 	$sql .= " ORDER BY nm_setor";
 	return Conexao::executar($sql);
 	}

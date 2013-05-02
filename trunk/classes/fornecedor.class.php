@@ -100,8 +100,12 @@ function procurar(){
 	if($this->ramo<>NULL){
 		$sql .= " nm_ramo_ativ LIKE '%$this->ramo%' AND";
 	}
-	
+	if($this->ativo<>2){
 	$sql .= " cd_ativo_fornecedor = $this->ativo"; 
+	}
+	if(substr($sql, -3) == "AND"){
+		$sql = substr($sql, 0, - 3);
+	} 
 	$sql .= " ORDER BY nm_razao_soc";
 	return Conexao::executar($sql);
 	}

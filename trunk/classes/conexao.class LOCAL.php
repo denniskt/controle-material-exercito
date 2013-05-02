@@ -1,10 +1,10 @@
 <?php 
 class Conexao{
 
-	private static $servidor = "mysql1.000webhost.com";
-	private static $usuario = "a5640723_cmex";
-	private static $senha = "cmex123";
-	private static $banco = "a5640723_siscmex";
+	private static $servidor = "localhost";
+	private static $usuario = "root";
+	private static $senha = "";
+	private static $banco = "siscmex";
 
 	
 	static function executar($sql){

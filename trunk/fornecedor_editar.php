@@ -1,25 +1,41 @@
 <?php
-	require_once("classes/fornecedor.class.php");
-		
-	if(isset($_GET)){
-		$fornecedor = Fornecedor::editar($_GET["cnpj"]);
-	}
-	
-	if(isset($_POST["editar_fornecedor"])){
-		if(!isset($_POST["email"])){$email=NULL;}else{$email=$_POST["email"];}
-		if(!isset($_POST["ramo"])){$ramo=NULL;}else{$ramo=$_POST["ramo"];}
+require_once("classes/fornecedor.class.php");
+
+$permiteacesso=0; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
+
+if(isset($_GET)){
+	$fornecedor = Fornecedor::editar($_GET["cnpj"]);
+}
+if(isset($_POST["editar_fornecedor"])){
+	if(!isset($_POST["email"])){$email=NULL;}else{$email=$_POST["email"];}
+	if(!isset($_POST["ramo"])){$ramo=NULL;}else{$ramo=$_POST["ramo"];}
 	$fornecedor = new Fornecedor($_POST["cnpj"],$_POST["razao"],$_POST["endereco"],$_POST["telefone"],$email,$ramo,$_POST["ativo"]);
-	$msg = $fornecedor->atualizar();
-	
+	$msg = $fornecedor->atualizar();	
 	Fornecedor::editar($_POST["cnpj"]);
 	$fornecedor = Fornecedor::editar($_GET["cnpj"]);
 	}
-	$permiteacesso=0;
-
-include("_header.php"); 
 ?>
-<head>
-<title>SISCMEX - Alterar Cadastro Fornecedor</title>
+
+<?php include("_header.php")?>
+<header>
+<title>SISCMEX - Cadastro/Usuário/Fornecedor</title>
+
+</header>
+<div class="conteudo">
+
+<body>
+<h1>Cadastro/Fornecedor/Editar</h1>
+<p>
+  <input type=button onClick="location.href='./fornecedor.php'" value="< Voltar">
+  <button id="botao_editar">Editar Cadastro Fornecedor</button>
+<hr size="1">
+</p>
+
+<p>
+<?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
+
+
+<div id="form_editar">
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -68,14 +84,8 @@ $("#form_cadastrar_fornecedor").validate({
 	});
 });
 </script>
-</header>
-<div class="conteudo">
-
-<body>
-<h1>Alterar Fornecedor
-</h1>
-<form id="form_editar" name="form_editar" method="post" action="">
-  <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
+<h2>Editar Cadastro Fornecedor</h2>
+<form id="form_editar_fornecedor" name="form_editar_fornecedor" method="post" action="">
   <p>cnpj*:<br>
 <label for="cnpj"></label>
 <input name="cnpj" type="text" id="cnpj" value="<?php echo $fornecedor->cd_cnpj; ?>" maxlength="20" readonly />
@@ -109,10 +119,20 @@ $("#form_cadastrar_fornecedor").validate({
     <input name="ativo" type="checkbox" id="ativo" value="1" <?php  if($fornecedor->cd_ativo_fornecedor==1){ echo "checked"; } ?>/>
     <label for="ativo"></label>
   </p>
-  <p>&nbsp;</p>
   <p>
     <input type="submit" name="editar_fornecedor" id="editar_fornecedor" value="Editar" />
+    <input type=button onClick="location.href='./fornecedor.php'" value="Cancelar">
   </p>
 </form>
-</diV>
-<?php include("_footer.php"); ?>
+</div>
+
+
+  
+    
+  </diV>
+  <?php include("_footer.php"); ?>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
