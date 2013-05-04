@@ -57,7 +57,7 @@ include("_header.php")?>
   </table>
   <h3><?php if(isset($msg)){ echo $msg; 
   }else{?>
-    Confirma  a desativa&ccedil;&atilde;o do cadastro do fornecedor??</h3>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro deste fornecedor??</h3>
   <p>
     <input type="submit" name="desativa_fornecedor" id="botaovermelho" value="Sim" />
     <input type=button onClick="location.href='./fornecedor.php'" value="Cancelar">

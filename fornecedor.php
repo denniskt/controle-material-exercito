@@ -158,7 +158,7 @@ $("#form_procurar_fornecedor").validate({
 });
 });
 </script>
-<h2>Procurar Cadastro Usuário</h2>
+<h2>Procurar Cadastro Fornecedor</h2>
 <form id="form_procurar_fornecedor" name="form_procurar_fornecedor" method="post" action="">
 <p>cnpj:<br>
 <label for="cnpj"></label>

@@ -109,7 +109,7 @@ $("#form_procurar_usuario").validate({
 });
 });
 </script>
-<h2>Setor/Procurar</h2>
+<h2>Procurar Cadastro Setor</h2>
 <form id="form_procurar_setor" name="form_procurar_setor" method="post" action="">
 <p>sigla do setor:<br>
 <label for="sigla"></label>

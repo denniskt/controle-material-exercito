@@ -138,7 +138,7 @@ $("#form_procurar_material").validate({
 </script>
 <h2>Procurar Cadastro Material</h2>
 <form id="form_procurar_material" name="form_procurar_material" method="post" action="">
-<p>codigo (digite somente súmeros)*:<br>
+<p>codigo (digite somente números)*:<br>
 <label for="codigo"></label>
 <input name="codigo" type="text" id="codigo" maxlength="11" />
 </p>
@@ -160,7 +160,7 @@ $("#form_procurar_material").validate({
 <label for="tipo"></label>
 <input name="tipo" type="text" id="tipo" maxlength="10" />
 </p>
-<p>Ativo:<br>
+<p>ativo:<br>
 <select name="ativo" id="ativo">
       <option value="1">Ativos</option>
       <option value="0">Inativos</option>

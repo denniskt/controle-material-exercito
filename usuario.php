@@ -216,7 +216,7 @@ $("#form_procurar_usuario").validate({
 	}; ?>
 </select>
 </p>
-<p>Ativo:<br>
+<p>ativo:<br>
 <select name="ativo" id="ativo">
       <option value="1">Ativos</option>
       <option value="0">Inativos</option>
@@ -279,10 +279,5 @@ if(isset($lista)){
 </p>
   
     
-  </diV>
-  <?php include("_footer.php"); ?>
-</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
+</diV>
+<?php include("_footer.php"); ?>
