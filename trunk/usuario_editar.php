@@ -58,7 +58,7 @@ $("#form_editar_usuario").validate({
   </p>
   <p>senha*:<br>
     <label for="senha"></label>
-    <input name="senha" type="text" id="senha" value="<?php echo base64_decode($usuario->nm_senha);?>" maxlength="8" />
+    <input name="senha" type="password" id="senha" value="<?php echo base64_decode($usuario->nm_senha);?>" maxlength="8" />
     <label></label>
   </p>
   <p>nome completo*:<br>
