@@ -76,7 +76,7 @@ static function desativar($cnpj){
 }
  
 static function listar(){
-	$sql = "SELECT * FROM fornecedor ORDER BY nm_razao_soc";
+	$sql = "SELECT * FROM fornecedor WHERE cd_ativo_fornecedor=1 ORDER BY nm_razao_soc";
 	return Conexao::executar($sql);
 }
   

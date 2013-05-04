@@ -54,7 +54,7 @@ if(isset($_POST["desativar_material"])){
   </table>
   <h3><?php if(isset($msg)){ echo $msg; 
   }else{?>
-    Confirma  a desativa&ccedil;&atilde;o do cadastro de material?</h3>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro deste material?</h3>
   <p>
     <input type="submit" name="desativar_material" id="botaovermelho" value="Sim" />
     <input type=button onClick="location.href='./material.php'" value="Cancelar">

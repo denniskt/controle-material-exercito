@@ -55,7 +55,7 @@ if(isset($_POST["desativa_usuario"])){
   <h3><?php if(isset($msg)){ echo $msg; 
   }else{?>
     Usu&aacute;rios com contas desativadas n&atilde;o ter&atilde;o mais acesso ao sistema. <br>
-    Confirma  a desativa&ccedil;&atilde;o do cadastro do usu&aacute;rio?</h3>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro deste usu&aacute;rio?</h3>
   <p>
     <input type="submit" name="desativa_usuario" id="botaovermelho" value="Sim" />
     <input type=button onClick="location.href='./usuario.php'" value="Cancelar">

@@ -42,7 +42,7 @@ if(isset($_POST["desativa_setor"])){
   <h3><?php if(isset($msg)){ echo $msg; 
   }else{?>
     Setores com contas desativadas não poderão realizar solicitações de material. <br>
-    Confirma  a desativa&ccedil;&atilde;o do cadastro do setor?</h3>
+    Confirma  a desativa&ccedil;&atilde;o do cadastro deste setor?</h3>
   <p>
     <input type="submit" name="desativa_setor" id="botaovermelho" value="Sim" />
     <input type=button onClick="location.href='./usuario.php'" value="Cancelar">
