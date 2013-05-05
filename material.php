@@ -197,7 +197,7 @@ if(isset($lista)){
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
         <td><?php echo $linha['sg_tipo_material'] ?></td>
 		<td><?php if($linha['cd_ativo_material']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td align="center"><a href='material_editar.php?codigo=<?php echo $linha['cd_material']?>'><img border=0 src="imagens/icone_editar.png"> editar </a> <a href='material_desativar.php?codigo=<?php echo $linha['cd_material']?>'><img src="imagens/inativo.png" > desativar</a></td>
+		<td align="center"><a href='material_editar.php?codigo=<?php echo $linha['cd_material']?>'><img border=0 src="imagens/icone_editar.png"> editar </a> <a href='material_desativar.php?codigo=<?php echo $linha['cd_material']?>'><img border=0 src="imagens/inativo.png" > desativar</a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>

@@ -30,7 +30,7 @@ function __set($atributo, $valor){
 
 
 function validar(){
-	$sql = "SELECT * FROM usuario WHERE cd_identidade = $this->identidade AND nm_senha = '$this->senha'";
+	$sql = "SELECT * FROM usuario u, nivel_acesso n WHERE cd_identidade = $this->identidade AND nm_senha = '$this->senha' AND u.cd_acesso=n.cd_acesso";
 	$aux = Conexao::executar($sql);
 	if(mysql_num_rows($aux)==1){
 		$usuario = mysql_fetch_object($aux);
@@ -39,13 +39,14 @@ function validar(){
 			$_SESSION['nome'] =$usuario->nm_usuario;
 			$_SESSION['guerra'] =$usuario->nm_guerra;
 			$_SESSION['nivel']=$usuario->cd_acesso;
+			$_SESSION['nivelT']=$usuario->nm_acesso;
 			return true;
 		}else{
 			$_SESSION['mensagem']="Usuário inativo";
 			return false;
 		}
 	}else{
-		$_SESSION['mensagem']="Usuário ou senha inválidos!<br>caso não lembre sua senha favor entrar em contato com o responsável do Almoxarifado.";
+		$_SESSION['mensagem']="Usuário ou senha inválidos!";
 		return false;
 	}
 }

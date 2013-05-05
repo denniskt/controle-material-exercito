@@ -1,6 +1,14 @@
 <?php session_start() ?>
 <head>
 <link type="text/css" rel="stylesheet" href="css/css.css" />
+<style type="text/css">
+body {
+	background-color: #333333;
+}
+#login_rodape {
+	color: #999999;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>SISCOMEX</title>
 <script type="text/javascript" src="./js/jquery.min.js" ></script>
@@ -36,49 +44,30 @@ $("#form_login").validate({
 
 <body>
  <p>&nbsp;</p>
- <p><img src="imagens/siscmex_logo2.png" alt="SISCMEX"></p>
  <p>&nbsp;</p>
-<form id="form_login" name="form_login" method="post" action="usuario_validar.php">
-  <h2>LOGIN  </h2>
-  <p>Identidade:
+ <p>&nbsp;</p>
+<table id="login" width="300" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+   <tr >
+     <td  width="150"><img src="imagens/login_logo.png" width="440" height="316" alt="siscmex" align="right"></td>
+     <td valign="top"><form id="form_login" name="form_login" method="post" action="usuario_validar.php">
+  <h2><br>
+    LOGIN  </h2>
+  <p>identidade*:<br>
     <input type="text" class="textfield" name="identidade" id="identidade" /></p>
-  <p>Senha: 
+  <p>senha*:<br>
     <input type="password" name="senha" id="senha" />
   <p><?php if(isset($_SESSION['mensagem'])){ echo $_SESSION['mensagem']; }?></p>
   <p>
+    <br>
     <input name="login" type="submit" id="login" value="Login" />
   </p>
-</form>
+</form></td>
+   </tr>
+ </table>
+ <p>&nbsp;</p>
+ <p>&nbsp;</p>
+ <p align="center" id="login_rodape">SISCMEX - SISTEMA DE CONTROLE DE MATERIAL DO EX&Eacute;RCITO</p>
+
 <p>
 <p></p>
-<table width="300" border="1" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>Usu&aacute;rios Testes</td>
-    <td>Identidade</td>
-    <td>senha</td>
-  </tr>
-  <tr>
-    <td>Administrador</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td>Almoxarife</td>
-    <td>1</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>Solicitante</td>
-    <td>2</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>Inativo</td>
-    <td>4</td>
-    <td>4</td>
-  </tr>
-</table>
-
-
-
 </body>

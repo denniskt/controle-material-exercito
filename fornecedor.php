@@ -226,7 +226,7 @@ if(isset($lista)){
         <td><?php echo $linha['nm_email'] ?></td>
         <td><?php echo $linha['nm_ramo_ativ'] ?></td>
 		<td><?php if($linha['cd_ativo_fornecedor']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td align="center"><a href="fornecedor_editar.php?cnpj=<?php echo $linha['cd_cnpj']?>"> <img src="imagens/icone_editar.png"> editar </a><a href="fornecedor_desativar.php?cnpj=<?php echo $linha['cd_cnpj']?>"><img src="imagens/inativo.png" > desativar</a></td>
+		<td align="center"><a href="fornecedor_editar.php?cnpj=<?php echo $linha['cd_cnpj']?>"> <img border=0 src="imagens/icone_editar.png"> editar </a><a href="fornecedor_desativar.php?cnpj=<?php echo $linha['cd_cnpj']?>"><img src="imagens/inativo.png" border=0> desativar</a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>
