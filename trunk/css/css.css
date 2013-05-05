@@ -8,6 +8,7 @@ body {
 	
 a:link {
 	text-decoration: none;
+	color: #069;
 } 
 a:visited {
 	text-decoration: none;
@@ -17,9 +18,14 @@ a:active {
 } 
 a:hover {
 	text-decoration: none;
-	color: #006600;
+	color: #006;
 } 
    
+#login{
+	font-family: arial, sans-serif;
+	font-size: 12px;
+}
+
 div {
 	padding: 0;
 	}
@@ -51,40 +57,51 @@ caption {
   font-style: italic;
 }
 
+._header_id {
+	background-color: #000;
+	color: #FFF;
+	padding: 5;
+	text-align:right;
+	font-size: 8pt;
+}
+
+._headerF {
+	background-color: #000;
+	height: 55px;
+	width: 800px;
+
+}
+
 ._header {
 	background-color: #000;
 	color: #FFF;
 	padding: 10;
 }
 
-._header a:link {
+._header_id a:link {
 	text-decoration: none;
 	color: #FFFFFF;
 } 
-._header a:visited {
+._header_id a:visited {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #CCCCCC;
 } 
-._header a:active {
+._header_id a:active {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #CCCCCC;
 } 
-._header a:hover {
+._header_id a:hover {
 	text-decoration: none;
-	color: #009900;
+	color: #FFCC00;
 } 
 
 .footer {
 	color: #FFF;
 	background-color: #666;
-}
-.menu {
-	background-color: #EFEFEF;
-}
-
-.mensagem {
-	color: #F00;
-	font-weight: bolder;
+	position:inherit;
+	bottom:0;
+	width: 780px;
+	padding: 10;
 }
 
 #pad0 {
@@ -93,7 +110,6 @@ caption {
 	border:1px solid #dbdbdb;
 	font-size: 12px;
 }
-
 
 input, select, button{
 	border:1px solid #dbdbdb;
@@ -107,14 +123,15 @@ input, select, button{
 
 table.tablesorter {
 	font-family:arial;
-	background-color: #CDCDCD;
+	background-color: #069;
 	margin:10px 0pt 15px;
 	font-size: 8pt;
 	width: 100%;
 	text-align: left;
+	color: #FFF;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
+	background-color: ;
 	border: 1px solid #000;
 	font-size: 8pt;
 	padding: 4px;
@@ -128,7 +145,7 @@ table.tablesorter tbody td {
 	vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
+	background-color:#EEEEEE;
 }
 
 .tablesorter-default .header,
