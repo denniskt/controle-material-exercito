@@ -81,7 +81,7 @@ $("#form_editar_material").validate({
   </p>
   <p>descrição do material*:<br>
     <label for="descricao"></label>
-    <input name="descricao" type="text" id="descricao" value="<?php  echo $material->nm_descricao; ?>" maxlength="100" />
+    <input name="descricao" type="text" id="descricao"  size="100" value="<?php  echo $material->nm_descricao; ?>" maxlength="100" />
   </p>
   <p>unidade de medida*:
   <br>

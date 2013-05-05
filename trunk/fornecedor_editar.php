@@ -92,12 +92,12 @@ $("#form_cadastrar_fornecedor").validate({
 </p>
 <p>razão social*:<br>
 <label for="razao"></label>
-<input name="razao" type="text" id="razao" value="<?php echo $fornecedor->nm_razao_soc; ?>" maxlength="30" />
+<input name="razao" size="60" type="text" id="razao" value="<?php echo $fornecedor->nm_razao_soc; ?>" maxlength="30" />
 <label></label>
 </p>
 <p>endereço completo*:<br>
 <label for="endereco"></label>
-<input name="endereco" type="text" id="endereco" value="<?php echo $fornecedor->nm_endereco; ?>" maxlength="50" />
+<input name="endereco" type="text"  size="100" id="endereco" value="<?php echo $fornecedor->nm_endereco; ?>" maxlength="50" />
 </p>
 <p>telefone*:<br>
 <label for="telefone"></label>

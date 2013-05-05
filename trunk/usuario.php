@@ -101,7 +101,7 @@ $("#form_cadastrar_usuario").validate({
 </script>
 <h2>Cadastrar Novo Usu&aacute;rio</h2>
 <form id="form_cadastrar_usuario" name="form_cadastrar_usuario" method="post" action="">
-<p>identidade*:<br>
+<p>identidade militar*:<br>
 <label for="identidade"></label>
 <input name="identidade" type="text" id="identidade" maxlength="11" />
 </p>
@@ -112,12 +112,12 @@ $("#form_cadastrar_usuario").validate({
 </p>
 <p>nome completo*:<br>
 <label for="nome"></label>
-<input name="nome" type="text" id="nome" maxlength="30" />
+<input name="nome" size="60" type="text" id="nome" maxlength="30" />
 </p>
 <p>nome guerra*:
 <br>
 <label for="nomeguerra"></label>
-<input name="nomeguerra" type="text" id="nomeguerra" maxlength="15" />
+<input name="nomeguerra" size="40"  type="text" id="nomeguerra" maxlength="15" />
 </p>
 <p>setor*:
 <br>
@@ -174,18 +174,18 @@ $("#form_procurar_usuario").validate({
 </script>
 <h2>Procurar Cadastro Usuário</h2>
 <form id="form_procurar_usuario" name="form_procurar_usuario" method="post" action="">
-<p>identidade:<br>
+<p>identidade militar:<br>
 <label for="identidade"></label>
 <input name="identidade" type="text" id="identidade" maxlength="11" />
 </p>
-<p>nome completo:<br>
+<p>nome:<br>
 <label for="nome"></label>
-<input name="nome" type="text" id="nome" maxlength="30" />
+<input name="nome" size="60" type="text" id="nome"  maxlength="30" />
 </p>
 <p>nome guerra:
 <label for="nomeguerra"></label>
 <br>
-<input name="nomeguerra" type="text" id="nomeguerra" maxlength="15" />
+<input name="nomeguerra" size="40"  type="text" id="nomeguerra" maxlength="15" />
 </p>
 <p>setor:
 <label for="setor"></label>

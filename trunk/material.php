@@ -96,7 +96,7 @@ $("#form_cadastrar_material").validate({
 </p>
 <p>descrição*:<br>
 <label for="descricao"></label>
-<input name="descricao" type="text" id="descricao" maxlength="100" />
+<input name="descricao" size="100" type="text" id="descricao" maxlength="100" />
 </p>
 <p>unidade de medida*:<br>
 <label for="unidade"></label>
@@ -149,7 +149,7 @@ $("#form_procurar_material").validate({
 </p>
 <p>descrição*:<br>
 <label for="descricao"></label>
-<input name="descricao" type="text" id="descricao" maxlength="100" />
+<input name="descricao" size="100" type="text" id="descricao" maxlength="100" />
 </p>
 <p>unidade de medida*:<br>
 <label for="unidade"></label>
@@ -193,7 +193,7 @@ if(isset($lista)){
 	 <tr>
 		<td><?php echo $linha['cd_material'] ?></td>
 		<td><?php echo $linha['nm_material'] ?></td>
-		<td><?php echo $linha['nm_descricao'] ?></td>
+		<td><?php echo substr($linha['nm_descricao'],0,40); if(strlen($linha['nm_descricao']) > 40){ echo "...";} ?></td>
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
         <td><?php echo $linha['sg_tipo_material'] ?></td>
 		<td><?php if($linha['cd_ativo_material']==1){echo "Sim";}else{ echo "Não";} ?></td>
