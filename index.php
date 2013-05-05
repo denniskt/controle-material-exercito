@@ -45,10 +45,10 @@ $("#form_login").validate({
 <body>
  <p>&nbsp;</p>
  <p>&nbsp;</p>
- <p>&nbsp;</p>
-<table id="login" width="300" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+ <p>&nbsp;</p><center>
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="login">
    <tr >
-     <td  width="150"><img src="imagens/login_logo.png" width="440" height="316" alt="siscmex" align="right"></td>
+     <td  width="150px"><img src="imagens/login_logo.png" alt="siscmex" align="right"></td>
      <td valign="top"><form id="form_login" name="form_login" method="post" action="usuario_validar.php">
   <h2><br>
     LOGIN  </h2>
@@ -59,11 +59,11 @@ $("#form_login").validate({
   <p><?php if(isset($_SESSION['mensagem'])){ echo $_SESSION['mensagem']; }?></p>
   <p>
     <br>
-    <input name="login" type="submit" id="login" value="Login" />
+    <input name="login" type="submit" value="Login" />
   </p>
 </form></td>
    </tr>
- </table>
+ </table></center>
  <p>&nbsp;</p>
  <p>&nbsp;</p>
  <p align="center" id="login_rodape">SISCMEX - SISTEMA DE CONTROLE DE MATERIAL DO EX&Eacute;RCITO</p>

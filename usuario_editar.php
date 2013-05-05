@@ -63,12 +63,12 @@ $("#form_editar_usuario").validate({
   </p>
   <p>nome completo*:<br>
     <label for="nome"></label>
-    <input name="nome" type="text" id="nome" value="<?php  echo $usuario->nm_usuario; ?>" maxlength="30" />
+    <input name="nome"  size="60" type="text" id="nome" value="<?php  echo $usuario->nm_usuario; ?>" maxlength="30" />
   </p>
   <p>nome guerra*:
     <label for="nomeguerra"></label>
   <br>
-    <input name="nomeguerra" type="text" id="nomeguerra" value="<?php echo $usuario->nm_guerra; ?>" maxlength="15" />
+    <input name="nomeguerra" size="40" type="text" id="nomeguerra" value="<?php echo $usuario->nm_guerra; ?>" maxlength="15" />
   </p>
   <p>setor*:
     <label for="setor"></label>

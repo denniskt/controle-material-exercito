@@ -1,6 +1,6 @@
 body {
 	margin: 0 auto;
-	width: 800px;
+	width: 1000px;
 	font-family: arial, sans-serif;
 	font-size: 12px;
 	background-color: #FFFFFF;
@@ -24,6 +24,7 @@ a:hover {
 #login{
 	font-family: arial, sans-serif;
 	font-size: 12px;
+	width: 800px;
 }
 
 div {
@@ -68,7 +69,7 @@ caption {
 ._headerF {
 	background-color: #000;
 	height: 55px;
-	width: 800px;
+	width: 1000px;
 
 }
 
@@ -100,7 +101,7 @@ caption {
 	background-color: #666;
 	position:inherit;
 	bottom:0;
-	width: 780px;
+	width: 980px;
 	padding: 10;
 }
 
