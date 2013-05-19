@@ -1,4 +1,6 @@
-<?php session_start() ?>
+<?php session_start(); 
+$_SESSION['qtde_itens']=0;
+?>
 <head>
 <link type="text/css" rel="stylesheet" href="css/css.css" />
 <style type="text/css">

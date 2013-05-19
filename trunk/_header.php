@@ -27,12 +27,12 @@ $(function(){
 });
 </script>
 
-<?php if(!isset($_SESSION['nome'])){
-	header("location: ./usuario_sair.php");
-}
-if($_SESSION['nivel'] > $permiteacesso){
-	header("location: ./acessonegado.php");
-}?>
+<?php //if(!isset($_SESSION['nome'])){
+	//header("location: ./usuario_sair.php");
+//}
+//if($_SESSION['nivel'] > $permiteacesso){
+	//header("location: ./acessonegado.php");
+//}?>
 
 <link type="text/css" rel="stylesheet" href="./css/css.css" />
 <link type="text/css" rel="stylesheet" href="./css/menu.css" >
@@ -56,7 +56,8 @@ if($_SESSION['nivel'] > $permiteacesso){
 	</li>
 	<li><a href='#'>Solicitações</a>
 		<ul>
-			<li><a href="#">Minhas Solicitações</a></li>
+        	<li><a href='solicitacao.php'>Nova Solicitação</a></li>
+			<li><a href=#>Minhas Solicitações</a></li>
 			<li><a href="#">Aprovadas</a></li>
 			<li><a href="#">Pendentes</a></li>
 			<li><a href="#">Desativar</a></li>
@@ -65,7 +66,7 @@ if($_SESSION['nivel'] > $permiteacesso){
 	</li>
 	<li><a href="#">Entrada/Saída</a>
 		<ul>
-			<li><a href="#">Entrada de Material</a></li>
+			<li><a href='entrada.php'>Entrada de Material</a></li>
 			<li><a href="#">Saída de Material</a></li>
 		</ul>
 	</li>

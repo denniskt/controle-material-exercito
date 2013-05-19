@@ -1,6 +1,6 @@
 body {
 	margin: 0 auto;
-	width: 1000px;
+	width: 1004px;
 	font-family: arial, sans-serif;
 	font-size: 12px;
 	background-color: #FFFFFF;
@@ -24,7 +24,7 @@ a:hover {
 #login{
 	font-family: arial, sans-serif;
 	font-size: 12px;
-	width: 800px;
+	width: 780px;
 }
 
 div {
@@ -61,7 +61,7 @@ caption {
 ._header_id {
 	background-color: #000;
 	color: #FFF;
-	padding: 5;
+	padding: 10px;
 	text-align:right;
 	font-size: 8pt;
 }
@@ -69,7 +69,7 @@ caption {
 ._headerF {
 	background-color: #000;
 	height: 55px;
-	width: 1000px;
+	width: 1004px;
 
 }
 
@@ -101,7 +101,7 @@ caption {
 	background-color: #666;
 	position:inherit;
 	bottom:0;
-	width: 980px;
+	width: 984px;
 	padding: 10;
 }
 
@@ -110,6 +110,12 @@ caption {
 	padding: 0px;
 	border:1px solid #dbdbdb;
 	font-size: 12px;
+}
+
+.qtde {
+	padding: 0px;
+	border:1px solid #dbdbdb;
+	font-size: 10px;
 }
 
 input, select, button{
@@ -169,7 +175,7 @@ table.tablesorter tbody tr.odd td {
 
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #8dbdd8;
+	background-color: #8dbdd8;
 }
 
 
