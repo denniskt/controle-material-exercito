@@ -111,4 +111,10 @@ function procurar(){
 	}
 
 }
+
+function ultima_solicitacao(){
+	$sql = "SELECT cd_solicitacao FROM solicitacao ORDER BY 1 DESC LIMIT 1";
+	return Conexao::executar($sql);
+}
+
 ?>
