@@ -11,7 +11,7 @@ if(isset($_POST["cadastrar_entrada"])){
 
 if(isset($_POST["procurar_entrada"])){
 	$entrada = new Entrada($_POST["codigo"],$_POST["codigoNota"],$_POST["dataEmissao"],$_POST["cnpj"]);
-	$lista = $entrada->procurar();
+	//$lista = $entrada->procurar($_POST["dataIni"]);
 }
 ?>
 
@@ -48,43 +48,9 @@ $("#form_procurar").toggle();
 <p>
 <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
 <div id="form_cadastrar" style="display: none">
-<script type="text/javascript">
-$(document).ready(function(){
-$("#form_cadastrar_entrada").validate({
-	rules: {    	
-		codigoNota: {
-			required: true,
-			},
-		dataEmissao: {
-			required: true,
-			minlength: 8
-			},
-		cnpj: {
-			required: true,
-			minlength: 2
-			}
-        },
-	messages: {
-    	codigoNota: {
-			required: " Campo obrigatório",
-			number: " Digite somente números",
-			},
-		dataEmissao: {
-			required: " Campo obrigatório",
-			},
-		cnpj: {
-			required: " Campo obrigatório",
-			}
-		}
-	});
-});
-</script>
+
 <h2>Cadastrar Nova Entrada</h2>
 <form id="form_cadastrar_entrada" name="form_cadastrar_entrada" method="post" action="">
-<p>Código*:<br>
-<label for="codigo"></label>
-<input name="codigo" type="text" id="codigo" maxlength="11" disabled="true" />
-</p>
 <p>Número da NF*:<br>
 <label for="codigoNota"></label>
 <input name="codigoNota" type="text" id="codigoNota" maxlength="8" />
@@ -92,7 +58,7 @@ $("#form_cadastrar_entrada").validate({
 </p>
 <p>Data de emissão*:<br>
 <label for="dataEmissao"></label>
-<input name="dataEmissao" type="text" id="dataEmissao" maxlength="30" />
+<input name="dataEmissao" type="date" id="dataEmissao" maxlength="30" />
 </p>
 <p>Fornecedor*:
 <br>
@@ -122,16 +88,20 @@ $("#form_cadastrar_entrada").validate({
 <form id="form_procurar_entrada" name="form_procurar_entrada" method="post" action="">
 <p>Código:<br>
 <label for="codigo"></label>
-<input name="codigo" type="text" id="codigo" maxlength="11" disabled="true" />
+<input name="codigo" type="text" id="codigo" maxlength="11" />
 </p>
 <p>Número da NF:<br>
 <label for="codigoNota"></label>
 <input name="codigoNota" type="text" id="codigoNota" maxlength="8" />
 <label></label>
 </p>
-<p>Data de emissão:<br>
+<p>Data de emissão inicial:<br>
+<label for="dataIni"></label>
+<input name="dataIni" type="date" id="dataEmissao" maxlength="10" />
+</p>
+<p>Data de emissão inicial:<br>
 <label for="dataEmissao"></label>
-<input name="dataEmissao" type="text" id="dataEmissao" maxlength="30" />
+<input name="dataEmissao" type="date" id="dataEmissao" maxlength="10" />
 </p>
 <p>Fornecedor:
 <br>
@@ -156,28 +126,27 @@ $("#form_cadastrar_entrada").validate({
 
 
 <?php 
-if(isset($_POST["procurar_usuario"])){
-	$lista = $entrada->procurar();
+if(isset($_POST["procurar_entrada"])){
+	$lista = $entrada->procurar($_POST["dataIni"]);
 }else{
 	$lista = Entrada::listar();
 }
 	
 if(isset($lista)){ 
-	if(mysql_num_rows($lista)){ 
+	if(mysql_num_rows($lista)){
 ?>
 <table id="tabela" class="tablesorter" width='100%'><thead>
 	<tr><th >código</th><th >nota fiscal</th><th >data de emissão</th><th >cnpj fonecedor</th><th >razão social</th><th align="center" >op&ccedil;&otilde;es</th></tr></thead> 
 	<tbody><?php
-	while($linha = mysql_fetch_array($lista)){ ?>
+	while($linha = mysql_fetch_array($lista)){ ?> 
 	 <tr>
 		<td><?php echo $linha['cd_entrada'] ?></td>
 		<td><?php echo $linha['cd_nota_fiscal'] ?></td>
-		<td><?php echo mask($linha['dt_emissao_nf'], '##/##/####') ?></td>
+		<td><?php echo $linha['dt_emissao_nf'] ?></td>
 		<td><?php echo mask($linha['cd_cnpj'], '##.###.###/####-##') ?></td>
 		<td><?php echo $linha['nm_razao_soc']?></td>
-		<td align="center"><?php echo $linha['nm_razao_soc']?></td>
-		<td align="center"><a href='entrada_editar.php?id=<?php echo $linha['cd_entrada']?>'><img border=0 src="imagens/icone_editar.png"> editar</a> </td>
-		<td align="center"><a href='itens_entrada.php?id=<?php echo $linha['cd_entrada']?>'><img border=0 src="imagens/icone_editar.png"> itens</a> </td>
+		<td align="center"><a href='entrada_editar.php?id=<?php echo $linha['cd_entrada']?>'><img border=0 src="imagens/icone_editar.png"> editar</a>
+		<a href='itens_entrada.php?id=<?php echo $linha['cd_entrada']?>'><img border=0 src="imagens/icone_editar.png"> itens</a> </td>
 	</tr>
 	<?php } ?>
 </tbody></table>

@@ -154,7 +154,7 @@ if(isset($lista)){
 		<td><?php echo $linha['sg_setor'] ?></td>
 		<td><?php echo $linha['nm_setor'] ?></td>
 		<td><?php if($linha['cd_ativo_setor']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td align="center"><a href='setor_editar.php?sigla=<?php echo $linha['sg_setor']?>'><img border=0 src="imagens/icone_editar.png"> editar</a> <a href='setor_desativar.php?sigla=<?php echo $linha['sg_setor']?>'><img border=0 src="imagens/inativo.png" > desativar</a></td>
+		<td align="center"><a href='setor_editar.php?sigla=<?php echo $linha['sg_setor']?>'><img border=0 src="imagens/icone_alterar.png"></a> <a href='setor_desativar.php?sigla=<?php echo $linha['sg_setor']?>'><img border=0 src="imagens/icone_desativar.png" ></a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>

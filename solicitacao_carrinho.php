@@ -54,16 +54,18 @@ function enviar(opcao) {
 
 <body>
 <h1>Solicitação/Carrinho</h1>
+<input type="button" onClick="location.href='./solicitacao.php'" value="Voltar">
 <hr size="1">
 
 <p>
+
 <div id="carrinho">
 
 <form name="frmCarrinho" method="post" action="solicitacao_finalizar.php">
 <input type="hidden" name="opc_finalizar">
-<table id="tabela" class="tablesorter" width='100%'><thead>
-	<tr><th >item</th><th >codigo</th><th >tipo</th><th >material</th><th >descrição</th><th>quantidade</th><th >unidade</th><th >opções</th></tr> </thead>
-<tbody><?php
+<table id="tabela0" class="tablesorter0" width='100%'>
+	<tr><th >item</th><th >codigo</th><th >tipo</th><th >material</th><th >descrição</th><th>quantidade</th><th >unidade</th><th  align="center">opções</th></tr>
+<?php
 for($i=1; $i<300; $i++) {
 $indice = $i;
 
@@ -78,10 +80,10 @@ if($_SESSION["cesta"][$indice]["QTDE"] <> 0){
         
 		<td><input type="text" class="qtde" name="a_prod[<?php echo $indice; ?>]" value="<?php echo $_SESSION["cesta"][$indice]["QTDE"]; ?>" size="3"></td>
         <td><?php echo $_SESSION["cesta"][$indice]["UNIDADE"]; ?></td>
-        <td><a href="solicitacao_carrinho.php?remover=<?php echo $_SESSION["cesta"][$indice]["CODIGO"]; ?>"><img border=0 src="imagens/inativo.png" > remover</a></td>
+        <td  align="center"><a href="solicitacao_carrinho.php?remover=<?php echo $_SESSION["cesta"][$indice]["CODIGO"]; ?>"><img border=0 src="imagens/icone_remover.png" ></a></td>
 	</tr>
 	<?php  } } ?>
-</tbody></table>
+</table>
 		<p align="right"><input type="button" value="Esvaziar Carrinho">
        <input type="button" value="Finalizar Pedido" onClick="enviar('F');"></p></form>
     
