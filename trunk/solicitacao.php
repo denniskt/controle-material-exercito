@@ -33,7 +33,7 @@ if(isset($_POST["procurar_material"])){
 <h1>Solicitação/Nova Solicitação</h1>
 <p>
   
-  <button id="botao_carrinho" onClick="location.href='./solicitacao_carrinho.php'">Carrinho (<?php echo $_SESSION['qtde_itens']; ?>) Itens</button>
+  <button id="botao_carrinho" onClick="location.href='./solicitacao_carrinho.php'">Carrinho (<?php if(isset($_SESSION['qtde_itens'])){echo $_SESSION['qtde_itens']; } ?>) Itens</button>
   <button id="botao_procurar">Procurar Material</button>
 <hr size="1">
 </p>
@@ -70,11 +70,11 @@ $("#form_procurar_material").validate({
 </script>
 <h2>Procurar Material</h2>
 <form id="form_procurar_material" name="form_procurar_material" method="post" action="">
-<p>código (digite somente números):<br>
+<p>codigo (digite somente números)*:<br>
 <label for="codigo"></label>
 <input name="codigo" type="text" id="codigo" maxlength="11" />
 </p>
-<p>nome material:<br>
+<p>nome material*:<br>
 <label for="material"></label>
 <input name="material" type="text" id="material" maxlength="30" />
 <label></label>

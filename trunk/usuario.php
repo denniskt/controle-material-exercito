@@ -254,7 +254,7 @@ if(isset($lista)){
 		<td><?php echo $linha['nm_setor'] ?></td>
 		<td><?php echo $linha['nm_acesso']?></td>
 		<td><?php if($linha['cd_ativo_usuario']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td align="center"><a href='usuario_editar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/icone_editar.png"> editar</a> <a href='usuario_desativar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/inativo.png" > desativar</a></td>
+		<td align="center"><a href='usuario_editar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/icone_alterar.png"></a> <a href='usuario_desativar.php?id=<?php echo $linha['cd_identidade']?>'><img border=0 src="imagens/icone_desativar.png" ></a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>

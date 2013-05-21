@@ -219,13 +219,13 @@ if(isset($lista)){
 	while($linha = mysql_fetch_array($lista)){ ?>
 	 <tr>
 		<td><?php echo $linha['cd_cnpj'] ?></td>
-		<td><?php echo $linha['nm_razao_soc'] ?></td>
-		<td><?php echo substr($linha['nm_endereco'],0,40); if(strlen($linha['nm_endereco']) > 40){ echo "...";} ?></td>
+		<td><?php echo substr($linha['nm_razao_soc'],0,20); if(strlen($linha['nm_razao_soc']) > 20){ echo "...";} ?></td>
+		<td><?php echo substr($linha['nm_endereco'],0,30); if(strlen($linha['nm_endereco']) > 30){ echo "...";} ?></td>
 		<td><?php echo $linha['nm_telefone'] ?></td>
         <td><?php echo $linha['nm_email'] ?></td>
         <td><?php echo $linha['nm_ramo_ativ'] ?></td>
 		<td><?php if($linha['cd_ativo_fornecedor']==1){echo "Sim";}else{ echo "Não";} ?></td>
-		<td align="center"><a href="fornecedor_editar.php?cnpj=<?php echo $linha['cd_cnpj']?>"> <img border=0 src="imagens/icone_editar.png"> editar </a><a href="fornecedor_desativar.php?cnpj=<?php echo $linha['cd_cnpj']?>"><img src="imagens/inativo.png" border=0> desativar</a></td>
+		<td align="center"><a href="fornecedor_editar.php?cnpj=<?php echo $linha['cd_cnpj']?>"> <img border=0 src="imagens/icone_alterar.png"></a><a href="fornecedor_desativar.php?cnpj=<?php echo $linha['cd_cnpj']?>"><img src="imagens/icone_desativar.png" border=0></a></td>
 	</tr>
 	<?php } ?>
 </tbody></table>

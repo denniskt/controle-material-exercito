@@ -36,7 +36,7 @@ require_once("classes/conexao.class.php");
 	}
 
 static function listar(){
-	$sql = "SELECT e.cd_entrada, e.cd_nota_fiscal, Date_Format(e.dt_emissao_nf,'%d/%m/%Y') as dt_emissao_nf, e.cd_cnpj, f.nm_razao_soc FROM entrada e JOIN fornecedor f USING (cd_cnpj) order by e.cd_entrada LIMIT 10";
+	$sql = "SELECT e.cd_entrada, e.cd_nota_fiscal, Date_Format(e.dt_emissao_nf,'%d/%m/%Y') as dt_emissao_nf, e.cd_cnpj, f.nm_razao_soc FROM entrada e JOIN fornecedor f USING (cd_cnpj)";
 	return Conexao::executar($sql);
 }
 
