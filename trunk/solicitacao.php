@@ -1,6 +1,6 @@
 <?php
 require_once("classes/material.class.php");
-require_once("classes/solicitacao.class.php");
+//require_once("classes/solicitacao.class.php");
 
 $permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
 

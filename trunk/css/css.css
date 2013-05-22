@@ -35,13 +35,6 @@ div {
 	padding: 10;
 	}
 	
-.fundo_tabela {
-	padding: 10;
-	background-color: #F0F0F0;
-	border: 1px solid #999;
-	}
-	
-
 table {
 
   border: 1px solid #999;
@@ -60,13 +53,6 @@ th {
   border: 1px solid #000;
   font-weight:bold;
   background-color: #069;
-  color: #FFF;
-}
-
-.th2 {
-  border: 1px solid #000;
-  font-weight:bold;
-  background-color: #999;
   color: #FFF;
 }
 
