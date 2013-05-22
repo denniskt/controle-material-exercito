@@ -27,12 +27,12 @@ $(function(){
 });
 </script>
 
-<?php //if(!isset($_SESSION['nome'])){
-	//header("location: ./usuario_sair.php");
-//}
-//if($_SESSION['nivel'] > $permiteacesso){
-	//header("location: ./acessonegado.php");
-//}?>
+<?php if(!isset($_SESSION['nome'])){
+	header("location: ./usuario_sair.php");
+}
+if($_SESSION['nivel'] > $permiteacesso){
+	header("location: ./acessonegado.php");
+}?>
 
 <link type="text/css" rel="stylesheet" href="./css/css.css" />
 <link type="text/css" rel="stylesheet" href="./css/menu.css" >

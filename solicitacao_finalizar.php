@@ -1,7 +1,7 @@
 <?php
 require_once("classes/conexao.class.php");
 require_once("classes/material.class.php");
-require_once("classes/solicitacao.class.php");
+//require_once("classes/solicitacao.class.php");
 
 $permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
 error_reporting(0);
@@ -9,7 +9,7 @@ include("_header.php");
 
 if(isset($_POST[opc_finalizar])) {
 	$identidade = $_SESSION['identidade'];
-	$sql = "INSERT INTO solicitacao VALUES(NULL,SYSDATE(),0,NULL, $identidade)";
+	$sql = "INSERT INTO solicitacao VALUES(NULL,SYSDATE(),NULL,NULL,0,NULL, $identidade)";
 	Conexao::executar($sql);
 	
 	$sql = "SELECT cd_solicitacao FROM solicitacao ORDER BY 1 DESC LIMIT 1";
@@ -73,6 +73,7 @@ if($_SESSION["cesta"][$indice]["QTDE"] <> 0){
 		<p align="right"><input type="button" value="Esvaziar Carrinho">
        <input type="button" value="Finalizar Pedido" onClick="enviar('F');"></p></form>
 </diV>
+<hr size="1">
 <?php include("_footer.php"); ?>
 </p>
 <p>&nbsp;</p>
