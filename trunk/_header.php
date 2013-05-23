@@ -41,19 +41,20 @@ if($_SESSION['nivel'] > $permiteacesso){
 
 <div class="_headerF">
 <div class="_header" style="float: left; width: 300px"><a href="./home.php"><img src="./imagens/home_logo.png" alt="SISCMEX" border=0/></a></div>
-<div class="_header_id" style="float: right; width: 300px"><b><?php echo $_SESSION['guerra']?></b> [<?php echo $_SESSION['nivelT']; ?>] - <a href="usuario_sair.php">Sair</a></div></div>
+<div class="_header_id" style="float: right; width: 300px"><b><img src="imagens/icone_identidade.png" alt="identidade" /><?php echo $_SESSION['guerra']?></b> [<?php echo $_SESSION['nivelT']; ?>] - <a href="usuario_sair.php">Sair</a></div></div>
 <div style="clear: both"></div>
 <div id="menu_">
 <ul id="jsddm">
-	<li><a href="./home.php">Home</a></li>
-	<li><a href="#">Cadastro</a>
+	<li><a href="./home.php"><img src="./imagens/menu_home.png" alt="SISCMEX" border=0/>Home</a></li>
+	<?php if($_SESSION['nivel'] <=1){ ?>
+    <li><a href="#">Cadastro</a>
 		<ul>
 			<li><a href='usuario.php'>Usuário</a></li>
          	<li><a href='setor.php'>Setor</a></li>
          	<li><a href='fornecedor.php'>Fornecedor</a></li>
          	<li><a href='material.php'>Material</a></li>
 		</ul>
-	</li>
+	</li> <?php } ?>
 	<li><a href='#'>Solicitações</a>
 		<ul>
         	<li><a href='solicitacao.php'>Nova Solicitação</a></li>
@@ -69,12 +70,11 @@ if($_SESSION['nivel'] > $permiteacesso){
 			<li><a href='entrada.php'>Entrada de Material</a></li>
 			<li><a href="#">Saída de Material</a></li>
 		</ul>
-	</li>
-	<li><a href="#">Relatórios</a></li>
+	</li><?php if($_SESSION['nivel'] <=1){ ?>
+	<li><a href="#">Relatórios</a></li><?php } ?>
 </ul>
 </div>
 
 <div class="menu"  style="width:800px">
 
- * HEADER ADMINISTRADOR
 </div>

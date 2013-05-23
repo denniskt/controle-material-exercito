@@ -111,14 +111,19 @@ $identidade = $_SESSION['identidade'];
 $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE cd_solicitacao = $codigo AND u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor ORDER BY dt_solicitacao";
 	$lista = Conexao::executar($sql);   
 	while($linha = mysql_fetch_array($lista)){?>
+    <h2>STATUS ATUAL: XPENDENTE</h2>
+    <table width='100%'>
+    <tr>
+    <td width="33%">DATA SOLICITAÇÃO: <?php echo $linha['dt_solicitacao'] ?></td>
+    <td width="33%">DATA APROVAÇÃO: <?php echo $linha['dt_aprovado'] ?></td>
+    <td width="34%">DATA RETIRADA: <?php echo $linha['dt_retirada'] ?></td>
+    <tr>
+    <td bgcolor="#FFCC00"></td><td bgcolor="#FF6600"></td><td bgcolor="#FF0000"></td></tr></table>
     <p>Solicitação Nr: <?php echo $linha['cd_solicitacao'] ?><br>
-    Data Solicitação: <?php echo $linha['dt_solicitacao'] ?><br>
-    Data Aprovação: <?php echo $linha['dt_aprovado'] ?><br>
-    Data Retirada: <?php echo $linha['dt_retirada'] ?><br>
     Solicitante: <?php echo $linha['nm_usuario'] ?><br>
     Setor: <?php echo $linha['nm_setor'] ?></p>
-	<?php } ?>
-        </table><table id="tabela0" class="tablesorter0" width='100%'>
+	<?php } ?><table id="tabela0" class="tablesorter0" width='100%'>
+         <tr><td colspan="7" clas="td_titulo">MATERIAL SOLICITADO</td></tr> 
         <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >quantidade</th><th >unidade</th></tr>  
 	<?php
         $i = 0;
@@ -134,7 +139,7 @@ $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i
 		<td><?php echo $linha['qt_solicitado'] ?></td>
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
 	</tr>
-	<?php } ?></table>
+	<?php } ?><th colspan="7"></th></table>
     
 <?php if($_SESSION['nivel']<=1) { ?><p align="right"><input type="submit" name="solicitacao_aprovar" id="solicitacao_aprovar" value="Aprovar" /><?php } ?></form>
    <?php //}else{echo "<h3>Nenhum resultado encontrado!</h3>"; } }?>
