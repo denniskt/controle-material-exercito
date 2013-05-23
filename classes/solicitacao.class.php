@@ -27,8 +27,35 @@ function __set($atributo, $valor){
 }
 
 
-static function listar(){
-	$sql = "SELECT * FROM solicitacao WHERE cd_ativo_setor=1 ORDER BY nm_setor";
+static function lista_qt_pendentes(){
+	$sql = "SELECT s.cd_solicitacao AS num FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 0 ORDER BY s.dt_solicitacao";
+	return Conexao::executar($sql);
+}
+
+static function lista_pendentes(){
+	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 0 ORDER BY s.dt_solicitacao DESC LIMIT 5";
+	return Conexao::executar($sql);
+}
+
+static function lista_qt_aprovadas(){
+	$sql = "SELECT s.cd_solicitacao AS num FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_solicitacao LIMIT 5";
+	return Conexao::executar($sql);
+}
+
+static function lista_aprovadas(){
+	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_solicitacao LIMIT 5";
+	return Conexao::executar($sql);
+}
+
+static function lista_minhas_qt_pendentes(){
+	$identidade = $_SESSION['identidade'];
+	$sql = "SELECT * FROM solicitacao WHERE cd_identidade = $identidade AND ic_aprovacao = 0";
+	return Conexao::executar($sql);
+}
+
+static function lista_minhas_qt_aprovadas(){
+	$identidade = $_SESSION['identidade'];
+	$sql = "SELECT * FROM solicitacao WHERE cd_identidade = $identidade AND ic_aprovacao = 1";
 	return Conexao::executar($sql);
 }
   
