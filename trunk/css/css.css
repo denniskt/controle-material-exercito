@@ -198,6 +198,11 @@ h3 {
 	text-transform:uppercase;
 }
 
+h2 {
+	margin-bottom: 0; 
+	padding-bottom: 0; 
+}
+
 #botaovermelho{
 	background-color:#FF8080;
 	border-color: #900;
