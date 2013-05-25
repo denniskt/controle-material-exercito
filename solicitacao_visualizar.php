@@ -1,5 +1,6 @@
 <?php
 require_once("classes/conexao.class.php");
+require_once("classes/solicitacao.class.php");
 
 $permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
 
@@ -29,16 +30,7 @@ if(isset($_POST["solicitacao_aprovar"])){
 </p>
 
 <script>
-$("#botao_cadastrar").click(function () {
-$("h3").hide();
-$("#form_procurar").hide();
-$("#form_cadastrar").toggle();
-});
-</script>
-<script>
 $("#botao_procurar").click(function () {
-$("h3").hide();
-$("#form_cadastrar").hide();
 $("#form_procurar").toggle();
 
 });
@@ -107,11 +99,12 @@ if(isset($_POST["procurar_solicitacao"])){
 ?>
 <form id="form_solicitacao_aprovar" name="form_solicitacao_aprovar" method="post" action="">
 <?php 
-$identidade = $_SESSION['identidade'];
-$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE cd_solicitacao = $codigo AND u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor ORDER BY dt_solicitacao";
-	$lista = Conexao::executar($sql);   
-	while($linha = mysql_fetch_array($lista)){?>
-    <h2>STATUS ATUAL: XPENDENTE</h2>
+	$lista = Solicitacao::visualizar($codigo);
+	while($linha = mysql_fetch_array($lista)){ ?>
+    <h2>SOLICITAÇÃO NR: <?php echo $linha['cd_solicitacao'] ?><br>
+    STATUS ATUAL: <?php if($linha['ic_aprovacao']==0){ echo "PENDENTE"; }elseif($linha['ic_aprovacao']==1){ echo "APROVADA"; }elseif($linha['ic_aprovacao']==2){ echo "CONCLUÍDA"; }elseif($linha['ic_aprovacao']==3){ echo "CANCELADA"; } ?></h2>
+    <?php if($linha['ic_aprovacao']==3){ echo "Motivo do Cancelamento: ".$linha['ds_cancelamento']; } ?>
+    <p>
     <table width='100%'>
     <tr>
     <td width="33%">DATA SOLICITAÇÃO: <?php echo $linha['dt_solicitacao'] ?></td>
@@ -119,16 +112,15 @@ $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i
     <td width="34%">DATA RETIRADA: <?php echo $linha['dt_retirada'] ?></td>
     <tr>
     <td bgcolor="#FFCC00"></td><td bgcolor="#FF6600"></td><td bgcolor="#FF0000"></td></tr></table>
-    <p>Solicitação Nr: <?php echo $linha['cd_solicitacao'] ?><br>
+    <p>
     Solicitante: <?php echo $linha['nm_usuario'] ?><br>
     Setor: <?php echo $linha['nm_setor'] ?></p>
 	<?php } ?><table id="tabela0" class="tablesorter0" width='100%'>
-         <tr><td colspan="7" clas="td_titulo">MATERIAL SOLICITADO</td></tr> 
-        <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >quantidade</th><th >unidade</th></tr>  
+         <tr><td colspan="8" clas="td_titulo">MATERIAL SOLICITADO</td></tr> 
+        <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >qtde solicitado</th><th >qtde disponível</th><th >unidade</th></tr>  
 	<?php
-        $i = 0;
-        $sql = "SELECT i.cd_solicitacao , m.cd_material , m.sg_tipo_material , m.nm_material , m.nm_descricao , i.qt_solicitado , m.sg_unidade_med FROM item_solicitacao i , material m WHERE i.cd_material = m.cd_material AND i.cd_solicitacao = $codigo";
-	$lista = Conexao::executar($sql);  
+    $i = 0;
+	$lista = Solicitacao::visualizar_lista_material($codigo);
 	while($linha = mysql_fetch_array($lista)){ ?>
 	 <tr>
 		<td><?php echo ++$i ?></td>
@@ -137,9 +129,10 @@ $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i
 		<td><?php echo $linha['nm_material'] ?></td>
 		<td><?php echo $linha['nm_descricao'] ?></td>
 		<td><?php echo $linha['qt_solicitado'] ?></td>
+        <td><?php echo $linha['qt_material'] ?></td>
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
 	</tr>
-	<?php } ?><th colspan="7"></th></table>
+	<?php } ?><th colspan="8"></th></table>
     
 <?php if($_SESSION['nivel']<=1) { ?><p align="right"><input type="submit" name="solicitacao_aprovar" id="solicitacao_aprovar" value="Aprovar" /><?php } ?></form>
    <?php //}else{echo "<h3>Nenhum resultado encontrado!</h3>"; } }?>

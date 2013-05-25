@@ -42,10 +42,10 @@ $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i
     Setor: <?php echo $linha['nm_setor'] ?></p>
 	<?php } ?>
         </table><table id="tabela0" class="tablesorter0" width='100%'>
-        <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >quantidade</th><th >unidade</th></tr>  
+        <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >qtde solicitada</th><th >qtde disponível</th><th >unidade</th></tr>  
 	<?php
         $i = 0;
-        $sql = "SELECT i.cd_solicitacao , m.cd_material , m.sg_tipo_material , m.nm_material , m.nm_descricao , i.qt_solicitado , m.sg_unidade_med FROM item_solicitacao i , material m WHERE i.cd_material = m.cd_material AND i.cd_solicitacao = $codigo";
+        $sql = "SELECT i.cd_solicitacao , m.cd_material , m.sg_tipo_material , m.nm_material , m.nm_descricao , i.qt_solicitado, e.qt_material, m.sg_unidade_med FROM item_solicitacao i , material m, estoque e WHERE i.cd_material = m.cd_material AND i.cd_solicitacao = $codigo AND m.cd_material = e.cd_material";
 	$lista = Conexao::executar($sql);  
 	while($linha = mysql_fetch_array($lista)){ ?>
 	 <tr>
@@ -55,6 +55,7 @@ $sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i
 		<td><?php echo $linha['nm_material'] ?></td>
 		<td><?php echo $linha['nm_descricao'] ?></td>
 		<td><?php echo $linha['qt_solicitado'] ?></td>
+        <td><?php echo $linha['qt_material'] ?></td>
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
 	</tr>
 	<?php } ?></table>
