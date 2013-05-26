@@ -40,6 +40,7 @@ function validar(){
 			$_SESSION['guerra'] =$usuario->nm_guerra;
 			$_SESSION['nivel']=$usuario->cd_acesso;
 			$_SESSION['nivelT']=$usuario->nm_acesso;
+			$_SESSION['senha']=$usuario->nm_senha;
 			return true;
 		}else{
 			$_SESSION['mensagem']="Usuário inativo";
@@ -72,6 +73,23 @@ static function editar($id){
 }
  
 function atualizar(){
+	$sql  = "UPDATE usuario SET ";
+	$sql .= "cd_identidade = $this->identidade, ";
+	$sql .= "nm_usuario = '$this->nomecompleto', ";
+	$sql .= "nm_guerra = '$this->nomeguerra', ";
+	//$sql .= "nm_senha = '$this->senha', ";
+	$sql .= "cd_acesso = $this->nivelacesso, ";
+	$sql .= "sg_setor = '$this->setor', ";
+	$sql .= "cd_ativo_usuario = $this->ativo ";
+	$sql .= "WHERE cd_identidade = $this->identidade";
+	if(Conexao::executar($sql)=="1"){
+		return "Cadastro atualizado com sucesso!";
+	}else{
+		return "Erro ao atualizar usuário!";
+	}
+}
+
+function atualizar_senha(){
 	$sql  = "UPDATE usuario SET ";
 	$sql .= "cd_identidade = $this->identidade, ";
 	$sql .= "nm_usuario = '$this->nomecompleto', ";

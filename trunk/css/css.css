@@ -143,6 +143,10 @@ input, select, button{
 	font-weight: bolder;
 }
 
+#tabela_status {
+	font-weight: bolder;
+}
+
 table.tablesorter {
 	font-family:arial;
 	background-color: #069;

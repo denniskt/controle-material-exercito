@@ -1,5 +1,10 @@
 
 </div>
 </body>
-<div class="footer">Fim da p&aacute;gina</div>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+
+<div class="footer">
+Fim da p&aacute;gina
+</div>
 </html>

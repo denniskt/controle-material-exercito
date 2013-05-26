@@ -7,8 +7,14 @@ if(isset($_GET)){
 	$usuario = Usuario::editar($_GET["id"]);
 }
 if(isset($_POST["editar_usuario"])){	
-	$usuario = new Usuario($_POST["identidade"],base64_encode($_POST["senha"]),$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
-	$msg = $usuario->atualizar();
+    if($_POST["senha"]==""){
+		$usuario = new Usuario($_POST["identidade"],NULL,$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
+		$msg = $usuario->atualizar();
+	}else{
+		$usuario = new Usuario($_POST["identidade"],md5($_POST["senha"]),$_POST["nome"],$_POST["nomeguerra"],$_POST["setor"],$_POST["nivel"],$_POST["ativo"]);
+		$msg = $usuario->atualizar_senha();
+	}
+
 	Usuario::editar($_POST["identidade"]);
 	$usuario = Usuario::editar($_GET["id"]);
 }
@@ -58,7 +64,7 @@ $("#form_editar_usuario").validate({
   </p>
   <p>senha*:<br>
     <label for="senha"></label>
-    <input name="senha" type="password" id="senha" value="<?php echo base64_decode($usuario->nm_senha);?>" maxlength="8" />
+    <input name="senha" type="password" id="senha" value="" maxlength="8" />
     <label></label>
   </p>
   <p>nome completo*:<br>

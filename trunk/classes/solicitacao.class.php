@@ -72,13 +72,13 @@ static function lista_minhas_qt_aprovadas(){
 
 static function lista_minhas_pendentes(){
 	$identidade = $_SESSION['identidade'];
-	$sql = "SELECT cd_solicitacao, DATE_FORMAT(dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao FROM solicitacao WHERE cd_identidade = $identidade ORDER BY dt_solicitacao DESC LIMIT 10";
+	$sql = "SELECT cd_solicitacao, DATE_FORMAT(dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao FROM solicitacao WHERE cd_identidade = $identidade AND ic_aprovacao = 0 ORDER BY dt_solicitacao DESC LIMIT 10";
 	return Conexao::executar($sql);
 }
 
 static function lista_minhas_aprovadas(){
 	$identidade = $_SESSION['identidade'];
-	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_aprovado DESC LIMIT 10";
+	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 AND s.cd_identidade = $identidade ORDER BY s.dt_aprovado DESC LIMIT 10";
 	return Conexao::executar($sql);
 }
 
@@ -92,7 +92,7 @@ static function lista_todas_minhas_solicitacoes(){
 
 static function visualizar($codigo){
 	$identidade = $_SESSION['identidade'];
-	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, s.ic_aprovacao, s.ds_cancelamento, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE cd_solicitacao = $codigo AND u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor";
+	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ic_aprovacao, s.ds_cancelamento, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE cd_solicitacao = $codigo AND u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor";
 	return Conexao::executar($sql);
 }
 
@@ -101,6 +101,11 @@ static function visualizar_lista_material($codigo){
 	return Conexao::executar($sql);
 }
 
+//
+static function liberar($codigo){
+	$sql = "UPDATE solicitacao SET ic_aprovacao = 2, dt_retirada = SYSDATE() WHERE cd_solicitacao = $codigo";
+	return Conexao::executar($sql);
+}
 
 
   

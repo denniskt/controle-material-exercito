@@ -4,6 +4,7 @@
 <script type="text/javascript" src="./js/jquery.validate.js" ></script>
 <script type="text/javascript" src="./js/jquery.tablesorter.js" ></script>
 <script type="text/javascript" src="./js/jquery.tablesorter.pager.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script type="text/javascript">
 var ddmenuitem      = 0;

@@ -7,11 +7,6 @@ $permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almo
 if(isset($_GET)){
 	$codigo = ($_GET["codigo"]);
 }
-if(isset($_POST["solicitacao_aprovar"])){	
-    $sql = "UPDATE solicitacao SET ic_aprovacao = 1, dt_aprovado = SYSDATE() WHERE cd_solicitacao = $codigo";
-	Conexao::executar($sql);
-	$msg = "Aprovado!!!!!!";
-}
 ?>
 
 <?php include("_header.php")?>
@@ -97,24 +92,27 @@ if(isset($_POST["procurar_solicitacao"])){
 ;
 }
 ?>
-<form id="form_solicitacao_aprovar" name="form_solicitacao_aprovar" method="post" action="">
+<form id="form_solicitacao" name="form_solicitacao" method="post" action="">
 <?php 
 	$lista = Solicitacao::visualizar($codigo);
-	while($linha = mysql_fetch_array($lista)){ ?>
+	while($linha = mysql_fetch_array($lista)){ 
+	$nivel_botoes = $linha['ic_aprovacao']; ?>
     <h2>SOLICITAÇÃO NR: <?php echo $linha['cd_solicitacao'] ?><br>
-    STATUS ATUAL: <?php if($linha['ic_aprovacao']==0){ echo "PENDENTE"; }elseif($linha['ic_aprovacao']==1){ echo "APROVADA"; }elseif($linha['ic_aprovacao']==2){ echo "CONCLUÍDA"; }elseif($linha['ic_aprovacao']==3){ echo "CANCELADA"; } ?></h2>
-    <?php if($linha['ic_aprovacao']==3){ echo "Motivo do Cancelamento: ".$linha['ds_cancelamento']; } ?>
+    STATUS ATUAL: <?php if($linha['ic_aprovacao']==0){ echo "PENDENTE"; }elseif($linha['ic_aprovacao']==1){ echo "APROVADA"; }elseif($linha['ic_aprovacao']==2){ echo "CONCLUÍDA"; }elseif($linha['ic_aprovacao']==3){ echo "CANCELADO"; } ?></h2>
+    <?php if($linha['ic_aprovacao']==3){ echo "MOTIVO DO CANCELAMENTO: ".$linha['ds_cancelamento']; } ?>
     <p>
     <table width='100%'>
-    <tr>
+    <tr><td colspan="6">ETAPAS E DATAS DO PROCESSO DE SOLICITAÇÃO:</td></tr><tr>
+    <td bgcolor="#D7D700">1</td>
     <td width="33%">DATA SOLICITAÇÃO: <?php echo $linha['dt_solicitacao'] ?></td>
+    <td bgcolor="<?php if($linha['dt_aprovado']== '00/00/0000 - 00h00' OR $linha['dt_aprovado']== NULL){ echo '#666666'; } else { echo '#009900';} ?>">2</td>
     <td width="33%">DATA APROVAÇÃO: <?php echo $linha['dt_aprovado'] ?></td>
-    <td width="34%">DATA RETIRADA: <?php echo $linha['dt_retirada'] ?></td>
-    <tr>
-    <td bgcolor="#FFCC00"></td><td bgcolor="#FF6600"></td><td bgcolor="#FF0000"></td></tr></table>
+    <td bgcolor="<?php if($linha['ic_aprovacao']==2){ echo '#009900'; } elseif($linha['ic_aprovacao']==3) { echo '#FF0000';} else { echo '#666666';} ?>">3</td>
+    <td width="34%"><?php if($linha['ic_aprovacao']==3){ echo 'DATA CANCELAMENTO: '.$linha['dt_cancelado']; } else{ echo 'DATA RETIRADA: '.$linha['dt_retirada'];}  ?></td>
+    </table>
     <p>
-    Solicitante: <?php echo $linha['nm_usuario'] ?><br>
-    Setor: <?php echo $linha['nm_setor'] ?></p>
+    SOLICITANTE: <?php echo $linha['nm_usuario'] ?><br>
+    SETOR: <?php echo $linha['nm_setor'] ?></p>
 	<?php } ?><table id="tabela0" class="tablesorter0" width='100%'>
          <tr><td colspan="8" clas="td_titulo">MATERIAL SOLICITADO</td></tr> 
         <tr><th >item</th><th >código</th><th >tipo</th><th >material</th><th >descricao</th><th >qtde solicitado</th><th >qtde disponível</th><th >unidade</th></tr>  
@@ -128,16 +126,41 @@ if(isset($_POST["procurar_solicitacao"])){
 		<td><?php echo $linha['sg_tipo_material'] ?></td>
 		<td><?php echo $linha['nm_material'] ?></td>
 		<td><?php echo $linha['nm_descricao'] ?></td>
-		<td><?php echo $linha['qt_solicitado'] ?></td>
+		<td><?php echo $linha['qt_solicitado']; 
+		if($linha['qt_solicitado']<$linha['sg_unidade_med']) { ?>
+        <img border=0 src="imagens/saldo_ok.png" ><?php }else{?>
+        <img border=0 src="imagens/saldo_insuficiente.png" <?php } ?>></td>
         <td><?php echo $linha['qt_material'] ?></td>
 		<td><?php echo $linha['sg_unidade_med'] ?></td>
+        <?php 
+		if(isset($_POST["solicitacao_aprovar"])){	
+    	Solicitacao::liberar($codigo); }
+		?>
 	</tr>
-	<?php } ?><th colspan="8"></th></table>
+	<?php }  ?><th colspan="8"></th></table>
     
-<?php if($_SESSION['nivel']<=1) { ?><p align="right"><input type="submit" name="solicitacao_aprovar" id="solicitacao_aprovar" value="Aprovar" /><?php } ?></form>
-   <?php //}else{echo "<h3>Nenhum resultado encontrado!</h3>"; } }?>
+<p align="right">
+<?php if($_SESSION['nivel']<=1 AND $nivel_botoes==0) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
+<input type="submit" name="solicitacao_aprovar" id="solicitacao_aprovar" value="Aprovar" />
+<?php }; if($_SESSION['nivel']<=1 AND  $nivel_botoes==1) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
+<input type="submit" name="solicitacao_liberar" id="solicitacao_liberar" value="Liberar" />
+<?php }; if($_SESSION['nivel']<=2 AND  $nivel_botoes<=1) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
+<input type="submit" name="solicitacao_cancelar" id="solicitacao_cancelar" value="Cancelar" />
+<?php };
+
+if(isset($_POST["solicitacao_liberar"])){	
+    Solicitacao::liberar($codigo);
+}
+if(isset($_POST["solicitacao_cancelar"])){	
+    $sql = "UPDATE solicitacao SET ic_aprovacao = 2, dt_retirada = SYSDATE() WHERE cd_solicitacao = $codigo";
+	Conexao::executar($sql);
+	$msg = "Aprovado!!!!!!";
+}
+
+?>
+
+</form>
 </p>
-  
     
   </diV>
   <?php include("_footer.php"); ?>

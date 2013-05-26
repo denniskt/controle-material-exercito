@@ -33,7 +33,7 @@ $("#lista_pendentes").toggle();
 		<td><?php echo $linha['dt_solicitacao'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
         <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_reaprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a></td> 
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_cancelar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a></td> 
 	  </tr></tr></tr><?php } ?><th colspan="5"></th>
     </table></div>
     
@@ -64,7 +64,7 @@ $("#lista_aprovadas").toggle();
         <td><?php echo $linha['dt_aprovado'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
          <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_cancelar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a></td>
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_cancelar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a></td>
 	</tr>
 	</tr><?php } ?><th colspan="6"></th>
 </table></div>
@@ -215,7 +215,7 @@ $("#home_todas_minhas_solicitacoes").toggle();
 	 <tr>
 		<td><?php echo $linha['cd_solicitacao'] ?></td>
 		<td><?php echo $linha['dt_solicitacao'] ?></td>
-        <td><?php if($linha['dt_aprovado']== '00/00/0000 - 00h00' OR $linha['dt_retirada']== NULL){ echo "-"; } else { echo $linha['dt_aprovado']; } ?></td>
+        <td><?php if($linha['dt_aprovado']== '00/00/0000 - 00h00' OR $linha['dt_aprovado']== NULL){ echo "-"; } else { echo $linha['dt_aprovado']; } ?></td>
         <td><?php if($linha['dt_cancelado']== '00/00/0000 - 00h00' OR $linha['dt_cancelado']== NULL){ echo "-"; } else { echo $linha['dt_cancelado']; } ?></td>
         <td><?php if($linha['dt_retirada']== '00/00/0000 - 00h00' OR $linha['dt_retirada']== NULL ){ echo "-"; } else { echo $linha['dt_retirada']; } ?></td>
         <td><?php if($linha['ic_aprovacao']==0){ echo "pendente"; }elseif($linha['ic_aprovacao']==1){ echo "aprovada"; }elseif($linha['ic_aprovacao']==2){ echo "concluido"; }elseif($linha['ic_aprovacao']==3){ echo "cancelada"; } ?></td>
