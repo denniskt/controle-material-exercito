@@ -3,13 +3,26 @@ require_once("classes/conexao.class.php");
 require_once("classes/solicitacao.class.php");
 
 $permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
+include("_header.php");
 
 if(isset($_GET)){
 	$codigo = ($_GET["codigo"]);
 }
-?>
+if(isset($_POST["solicitacao_aprovar"])){	
+    Solicitacao::aprovar($codigo);
+}
+if(isset($_POST["solicitacao_liberar"])){	
+    Solicitacao::liberar($codigo);
+}
+if(isset($_POST["solicitacao_cancelar_mensagem"])){	
 
-<?php include("_header.php")?>
+}
+if(isset($_POST["solicitacao_cancelar"])){	
+	$mensagem = $_POST["mensagem"];
+    Solicitacao::cancelar($codigo,$mensagem);
+}
+
+?>
 <header>
 <title>SISCMEX - Solicitação/Visualizar</title>
 
@@ -27,13 +40,13 @@ if(isset($_GET)){
 <script>
 $("#botao_procurar").click(function () {
 $("#form_procurar").toggle();
+$("#div_mensagem").toggle();
 
 });
 </script>
 <p>
 
 <div id="form_procurar" style="display: none">
-</script>
 <p>
 <?php if(isset($msg)){ echo "<h3>$msg</h3>"; }?>
 <script type="text/javascript">
@@ -138,29 +151,26 @@ if(isset($_POST["procurar_solicitacao"])){
 		?>
 	</tr>
 	<?php }  ?><th colspan="8"></th></table>
-    
+
 <p align="right">
+
+<?php if(isset($_POST["solicitacao_cancelar_motivo"])){ ?>
+MOTIVO DO CANCELAMENTO: 
+<input name="mensagem" type="text" id="mensagem" size="100" maxlength="30" />
+<?php if($_SESSION['nivel']<=2 AND  $nivel_botoes<=1) { ?>
+<input type="submit" name="solicitacao_cancelar" id="solicitacao_cancelar" value="Confirmar" />
+<?php }; }?>
 <?php if($_SESSION['nivel']<=1 AND $nivel_botoes==0) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
 <input type="submit" name="solicitacao_aprovar" id="solicitacao_aprovar" value="Aprovar" />
-<?php }; if($_SESSION['nivel']<=1 AND  $nivel_botoes==1) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
+<?php } if($_SESSION['nivel']<=1 AND  $nivel_botoes==1) { ?>
 <input type="submit" name="solicitacao_liberar" id="solicitacao_liberar" value="Liberar" />
-<?php }; if($_SESSION['nivel']<=2 AND  $nivel_botoes<=1) { //VERIFICA BOTOES DE ACORDO COM O NIVEL?>
-<input type="submit" name="solicitacao_cancelar" id="solicitacao_cancelar" value="Cancelar" />
-<?php };
+<?php } if($_SESSION['nivel']<=2 AND  $nivel_botoes<=1) { ?>
+<input type="submit" name="solicitacao_cancelar_motivo" id="solicitacao_cancelar_motivo" value="Cancelar" />
+<?php }  ?>
 
-if(isset($_POST["solicitacao_liberar"])){	
-    Solicitacao::liberar($codigo);
-}
-if(isset($_POST["solicitacao_cancelar"])){	
-    $sql = "UPDATE solicitacao SET ic_aprovacao = 2, dt_retirada = SYSDATE() WHERE cd_solicitacao = $codigo";
-	Conexao::executar($sql);
-	$msg = "Aprovado!!!!!!";
-}
-
-?>
-
-</form>
 </p>
+</form>
+
     
   </diV>
   <?php include("_footer.php"); ?>
