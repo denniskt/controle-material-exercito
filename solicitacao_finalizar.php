@@ -9,25 +9,11 @@ include("_header.php");
 
 if(isset($_POST[opc_finalizar])) {
 	$identidade = $_SESSION['identidade'];
-	$sql = "INSERT INTO solicitacao VALUES(NULL,SYSDATE(),NULL,NULL,0,NULL, $identidade)";
+	$sql = "INSERT INTO solicitacao VALUES(NULL,SYSDATE(),NULL,NULL,NULL,0,NULL, $identidade)";
 	Conexao::executar($sql);
 	
 	$sql = "SELECT cd_solicitacao FROM solicitacao ORDER BY 1 DESC LIMIT 1";
 	$codigo_solicitacao = mysql_fetch_assoc(Conexao::executar($sql));
-	
-	//for($i=0; $i<300; $i++) {
-	//	
-		//if($_SESSION["cesta"][$i]["QTDE"] <> 0){
-		//	$codigo = $_SESSION["cesta"][$i]["CODIGO"];
-		//	$qtde = $_SESSION["cesta"][$i]["QTDE"];
-		//	$sql = "INSERT INTO item_solicitacao VALUES($codigo,$codigo_solicitacao[cd_solicitacao],$qtde,NULL,NULL)";
-		//	$msg = Conexao::executar($sql);
-		//}
-	//}
-	//unset($_SESSION["cesta"]);
-	//$_SESSION['qtde_itens']=0;
-}else{
-	$msg = "oi";
 }
 ?>
 <header>
