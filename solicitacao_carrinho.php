@@ -8,6 +8,10 @@ error_reporting(0);
 
 include("_header.php");
 
+if(isset($_POST["esvaziar_carrinho"])){ 	
+	unset($_SESSION["cesta"]); 
+}
+
 if(isset($_GET["remover"])) {
 	$id = $_GET["remover"];
 	$_SESSION["cesta"][$id]["QTDE"] = 0;
@@ -44,6 +48,37 @@ function enviar(opcao) {
 }
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	
+
+$("#form_carrinho").validate({
+    rules: {
+        somethingelse: {
+            number: true
+        }
+    },
+    messages: {
+        somethingelse: 'Please enter your first name'
+    }
+});
+// then add your custom id based validation
+$("#qtde").rules("add", {
+    required: true,
+    messages: {
+        number: ""
+    }
+});
+});
+
+
+
+
+
+
+</script>
+
+
 
 
 <header>
@@ -61,7 +96,7 @@ function enviar(opcao) {
 
 <div id="carrinho">
 
-<form name="frmCarrinho" method="post" action="solicitacao_finalizar.php">
+<form name="frmCarrinho" method="post" action="">
 <input type="hidden" name="opc_finalizar">
 <table id="tabela0" class="tablesorter0" width='100%'>
 	<tr><th >item</th><th >codigo</th><th >tipo</th><th >material</th><th >descrição</th><th>quantidade</th><th >unidade</th><th  align="center">opções</th></tr>
@@ -78,14 +113,15 @@ if($_SESSION["cesta"][$indice]["QTDE"] <> 0){
 		<td><?php echo $_SESSION["cesta"][$indice]["MATERIAL"]; ?></td>
         <td><?php echo substr($_SESSION["cesta"][$indice]["DESCRICAO"],0,60); if(strlen($_SESSION["cesta"][$indice]["DESCRICAO"]) > 60){ echo "...";} ?></td>
         
-		<td><input type="text" class="qtde" name="a_prod[<?php echo $indice; ?>]" value="<?php echo $_SESSION["cesta"][$indice]["QTDE"]; ?>" size="3"></td>
+		<td><input type="text" id="qtde" class="qtde" name="a_prod[<?php echo $indice; ?>]" value="<?php echo $_SESSION["cesta"][$indice]["QTDE"]; ?>" size="3"></td>
         <td><?php echo $_SESSION["cesta"][$indice]["UNIDADE"]; ?></td>
         <td  align="center"><a href="solicitacao_carrinho.php?remover=<?php echo $_SESSION["cesta"][$indice]["CODIGO"]; ?>"><img border=0 src="imagens/icone_remover.png" ></a></td>
 	</tr>
 	<?php  } } ?>
 </table>
-		<p align="right"><input type="button" value="Esvaziar Carrinho">
-       <input type="button" value="Finalizar Pedido" onClick="enviar('F');"></p></form>
+		<p align="right">
+		<input type="submit" name="esvaziar_carrinho" id="esvaziar_carrinho" value="Esvaziar Carrinho" />
+		<input type="button" value="Finalizar Pedido" onClick="enviar('F');"></p></form>
     
 </diV>
 <?php include("_footer.php"); ?>

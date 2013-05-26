@@ -102,12 +102,20 @@ static function visualizar_lista_material($codigo){
 }
 
 //
+static function aprovar($codigo){
+	$sql = "UPDATE solicitacao SET ic_aprovacao = 1, dt_aprovado = SYSDATE() WHERE cd_solicitacao = $codigo";
+	return Conexao::executar($sql);
+}
+
 static function liberar($codigo){
 	$sql = "UPDATE solicitacao SET ic_aprovacao = 2, dt_retirada = SYSDATE() WHERE cd_solicitacao = $codigo";
 	return Conexao::executar($sql);
 }
 
-
+static function cancelar($codigo,$mensagem){
+	$sql = "UPDATE solicitacao SET ic_aprovacao = 3, dt_cancelado = SYSDATE(), ds_cancelamento = '$mensagem' WHERE cd_solicitacao = $codigo";
+	return Conexao::executar($sql);
+}
   
 function procurar(){
 	$sql = "SELECT * FROM solicitacao s, usuario u, setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade";

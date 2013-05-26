@@ -58,7 +58,7 @@ $("#form_login").validate({
     <input type="text" class="textfield" name="identidade" id="identidade" /></p>
   <p>senha*:<br>
     <input type="password" name="senha" id="senha" />
-  <p><?php if(isset($_SESSION['mensagem'])){ echo $_SESSION['mensagem']; }?></p>
+  <p></p>
   <p>
     <br>
     <input name="login" type="submit" value="Login" />
