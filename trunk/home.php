@@ -2,12 +2,15 @@
 include("_header.php");
 require_once("classes/solicitacao.class.php"); ?>
 <title>SISCMEX</title>
+
 </header>
 
 <body>
 <div class="conteudo">
 
 <?php if($_SESSION['nivel']<=1) { //  if home do adm e alm?>
+
+
 
 <!--HOME SOLICITAÇÕES PENDENTES-->
 
@@ -19,11 +22,11 @@ $("#botao_switch_pendentes").click(function () {
 $("#lista_pendentes").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_pendente.php'">Ver Todas Solicitações Pendentes</button>
+<button onClick="location.href='./solicitacao_lista.php?lista=0'">Ver Todas Solicitações Pendentes</button>
 <div id="lista_pendentes">
 <hr size="1">
 	<table id="tabela_home_lista_pendente" width='100%'>
-	<tr><th >nr solicitaçao</th><th >data da solicitaçao</th><th >solicitante</th><th >setor</th><th align="center" >op&ccedil;&otilde;es</th></tr> 
+	<tr><th >nr solicitação</th><th >data da solicitação</th><th >solicitante</th><th >setor</th><th align="center" >op&ccedil;&otilde;es</th></tr> 
 	<?php
 	$lista = Solicitacao::lista_pendentes();
 	while($linha = mysql_fetch_array($lista)){ 
@@ -33,9 +36,11 @@ $("#lista_pendentes").toggle();
 		<td><?php echo $linha['dt_solicitacao'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
         <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_cancelar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a></td> 
-	  </tr></tr></tr><?php } ?><th colspan="5"></th>
-    </table></div>
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a>
+        <a href='solicitacao_visualizar.php?acao=aprovar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a></td> 
+	  </tr><?php } ?><th colspan="5"></th>
+    </table>
+    </div>
     
 <hr size="1">
 
@@ -50,7 +55,7 @@ $("#botao_switch_aprovadas").click(function () {
 $("#lista_aprovadas").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_aprovada.php'">Ver Todas Solicitações Aprovadas</button>
+<button onClick="location.href='./solicitacao_lista.php?lista=1'">Ver Todas Solicitações Aprovadas</button>
 <div id="lista_aprovadas">
 <hr size="1">
 	<table id="tabela_home_lista_aprovadas"  width = '100%'>
@@ -64,7 +69,7 @@ $("#lista_aprovadas").toggle();
         <td><?php echo $linha['dt_aprovado'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
          <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_aprovar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_cancelar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a></td>
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_visualizar.php?acao=liberar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a></td>
 	</tr>
 	</tr><?php } ?><th colspan="6"></th>
 </table></div>
@@ -80,7 +85,7 @@ $("#botao_switch_retiradas").click(function () {
 $("#lista_retiradas").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_aprovada.php'">Ver Todas Solicitações Concluídas</button>
+<button onClick="location.href='./solicitacao_lista.php?lista=2'">Ver Todas Solicitações Concluídas</button>
 <div id="lista_retiradas">
 <hr size="1">
 	<table id="tabela_home_lista_retiradas"  width = '100%'>
@@ -111,7 +116,7 @@ $("#botao_switch_canceladas").click(function () {
 $("#lista_canceladas").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_aprovada.php'">Ver Todas Solicitações Canceladas</button>
+<button onClick="location.href='./solicitacao_lista.php?lista=3'">Ver Todas Solicitações Canceladas</button>
 <div id="lista_canceladas">
 <hr size="1">
 	<table id="tabela_home_lista_canceladas"  width = '100%'>
@@ -148,8 +153,8 @@ $("#botao_switch_minhas").click(function () {
 $("#home_minhas_solicitacoes").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_aprovada.php'">Minhas Solicitações Pendentes</button>
-<button onClick="location.href='./solicitacao_aprovada.php'">Minhas Solicitações Aprovadas</button>
+<button onClick="location.href='./solicitacao_minhas.php?lista=0'">Minhas Solicitações Pendentes</button>
+<button onClick="location.href='./solicitacao_minhas.php?lista=1'">Minhas Solicitações Aprovadas</button>
 
 <div id="home_minhas_solicitacoes">
 
@@ -202,7 +207,7 @@ $("#botao_switch_minhas_todas").click(function () {
 $("#home_todas_minhas_solicitacoes").toggle();
 });
 </script>
-<button onClick="location.href='./solicitacao_aprovada.php'">Todas Minhas Solicitações</button>
+<button onClick="location.href='./solicitacao_minhas.php?lista=4'">Todas Minhas Solicitações</button>
 
 <hr size="1">
 

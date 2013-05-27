@@ -63,7 +63,7 @@ $("#form_login").validate({
     <br>
     <input name="login" type="submit" value="Login" />
   </p>
-</form></td>
+</form><?php echo $_SESSION['mensagem']; ?></td>
    </tr>
  </table></center>
  <p>&nbsp;</p>

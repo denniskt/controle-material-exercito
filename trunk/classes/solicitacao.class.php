@@ -8,6 +8,7 @@ require_once("classes/conexao.class.php");
 	private $dt_retirada;
 	private $status;
 	private $solicitante;
+	private $setor;
   
 function __construct($codigo, $dt_solicitacao, $dt_aprovacao, $dt_retirada, $status, $solicitante){
 	$this->codigo = $codigo;
@@ -38,8 +39,39 @@ static function lista_pendentes(){
 	return Conexao::executar($sql);
 }
 
+static function lista_todas($tipo){
+	if($tipo==0){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 0 ORDER BY s.dt_solicitacao DESC";
+	}elseif($tipo==1){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_aprovado DESC";
+	}elseif($tipo==2){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado, DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 2 ORDER BY s.dt_retirada";
+	}elseif($tipo==3){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ds_cancelamento, u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 3 ORDER BY s.dt_cancelado DESC";
+	}elseif($tipo==4){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ic_aprovacao, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor";
+	}
+	return Conexao::executar($sql);
+}
+
+static function lista_todas_minhas($tipo,$identidade){
+	if($tipo==0){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 0  AND s.cd_identidade = $identidade ORDER BY s.dt_solicitacao DESC";
+	}elseif($tipo==1){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado , u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1  AND s.cd_identidade = $identidade ORDER BY s.dt_aprovado DESC";
+	}elseif($tipo==2){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado, DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 2  AND s.cd_identidade = $identidade ORDER BY s.dt_retirada";
+	}elseif($tipo==3){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao , DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ds_cancelamento, u.nm_usuario , st.nm_setor FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 3  AND s.cd_identidade = $identidade ORDER BY s.dt_cancelado DESC";
+	}elseif($tipo==4){
+		$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ic_aprovacao, u.nm_usuario, st.nm_setor  FROM solicitacao s, usuario u, setor st WHERE u.cd_identidade = s.cd_identidade AND u.sg_setor = st.sg_setor AND s.cd_identidade = $identidade";
+	}
+	return Conexao::executar($sql);
+}
+
+
 static function lista_qt_aprovadas(){
-	$sql = "SELECT s.cd_solicitacao AS num FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_solicitacao LIMIT 5";
+	$sql = "SELECT s.cd_solicitacao AS num FROM solicitacao s , usuario u , setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade AND s.ic_aprovacao = 1 ORDER BY s.dt_solicitacao";
 	return Conexao::executar($sql);
 }
 
@@ -101,7 +133,6 @@ static function visualizar_lista_material($codigo){
 	return Conexao::executar($sql);
 }
 
-//
 static function aprovar($codigo){
 	$sql = "UPDATE solicitacao SET ic_aprovacao = 1, dt_aprovado = SYSDATE() WHERE cd_solicitacao = $codigo";
 	return Conexao::executar($sql);
@@ -117,69 +148,26 @@ static function cancelar($codigo,$mensagem){
 	return Conexao::executar($sql);
 }
   
-function procurar(){
-	$sql = "SELECT * FROM solicitacao s, usuario u, setor st WHERE u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade";
-	if($this->codigo<>NULL){
-		$sql .= " cd_solicitacao = $this->codigo AND";
+static function procurar($codigo,$solicitante,$setor,$status,$identidade){
+	$sql = "SELECT s.cd_solicitacao, DATE_FORMAT(s.dt_solicitacao, '%d/%m/%Y - %Hh%i') AS dt_solicitacao, DATE_FORMAT(s.dt_aprovado, '%d/%m/%Y - %Hh%i') AS dt_aprovado,  DATE_FORMAT(s.dt_retirada, '%d/%m/%Y - %Hh%i') AS dt_retirada, DATE_FORMAT(s.dt_cancelado, '%d/%m/%Y - %Hh%i') AS dt_cancelado, s.ic_aprovacao, s.ds_cancelamento, u.nm_usuario, st.nm_setor FROM solicitacao s, usuario u, setor st WHERE";
+	if($codigo<>NULL){
+		$sql .= " s.cd_solicitacao = $codigo AND";
 	}
-	if($this->solicitante<>NULL){
-		$sql .= " nm_usuario LIKE '%$this->solicitante%' AND";
+	if($solicitante<>NULL){
+		$sql .= " u.nm_usuario LIKE '%$solicitante%' AND";
 	}
-	if($this->setor<>NULL){
-	$sql .= " nm_setor = $this->setor AND"; 
+	if($setor<>NULL){
+		$sql .= " st.nm_setor LIKE '%$setor%' AND";
 	}
-	if(substr($sql, -3) == "AND"){
-		$sql = substr($sql, 0, - 3);
-	}else if(substr($sql, -5) == "WHERE"){
-		$sql = substr($sql, 0, - 5);
+	if($identidade<>NULL){
+		$sql .= " s.cd_identidade = $identidade AND";
 	}
-	$sql .= " ORDER BY nm_setor";
+	if($status<>4){
+		$sql .= " s.ic_aprovacao = $status AND";
+	}
+	$sql .= " u.sg_setor = st.sg_setor AND s.cd_identidade = u.cd_identidade ORDER BY s.cd_solicitacao";
 	return Conexao::executar($sql);
 	}
-
-
-
-function inserir(){
-	$sql = "SELECT * FROM setor WHERE sg_setor = '$this->sigla'";
-	if(mysql_num_rows(Conexao::executar($sql))>0){
-		return "Sigla já cadastrada!!";
-	}else{
-		$sql = "INSERT INTO setor (sg_setor, nm_setor, cd_ativo_setor) ";
-		$sql .= "VALUES ('$this->sigla', '$this->nome', '$this->ativo')";
-		if(Conexao::executar($sql)=="1"){
-			return "Cadastro realizado com sucesso!";
-		}else{
-			return "Erro ao cadastrar setor!";
-		}
-	}
+	
 }
-
-static function editar($sigla){
-	$sql = "SELECT * FROM setor WHERE sg_setor='$sigla'";
-	return mysql_fetch_object(Conexao::executar($sql));
-}
- 
-function atualizar(){
-	$sql  = "UPDATE setor SET ";
-	$sql .= "nm_setor = '$this->nome', ";
-	$sql .= "cd_ativo_setor = $this->ativo ";
-	$sql .= "WHERE sg_setor = '$this->sigla'";
-	if(Conexao::executar($sql)=="1"){
-		return "Cadastro atualizado com sucesso!";
-	}else{
-		return "Erro ao atualizar setor!";
-	}
-}
- 
-
-
-static function desativar($sigla){
-	$sql  = "UPDATE setor SET cd_ativo_setor = 0 WHERE sg_setor = '$sigla'";
-	if(Conexao::executar($sql)=="1"){
-		return "Cadastro desativado com sucesso!";
-	}else{
-		return "Erro ao desativar setor!";
-	}
-}
-	}
 ?>

@@ -4,7 +4,7 @@
 <script type="text/javascript" src="./js/jquery.validate.js" ></script>
 <script type="text/javascript" src="./js/jquery.tablesorter.js" ></script>
 <script type="text/javascript" src="./js/jquery.tablesorter.pager.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.js"></script>
 
 <script type="text/javascript">
 var ddmenuitem      = 0;
@@ -59,19 +59,21 @@ if($_SESSION['nivel'] > $permiteacesso){
 	<li><a href='#'>Solicitações</a>
 		<ul>
         	<li><a href='solicitacao.php'>Nova Solicitação</a></li>
-			<li><a href=#>Minhas Solicitações</a></li>
-			<li><a href="#">Aprovadas</a></li>
-			<li><a href="#">Pendentes</a></li>
-			<li><a href="#">Desativar</a></li>
-			<li><a href="#">Procurar</a></li>
+			<li><a href='solicitacao_minhas.php'>Minhas Solicitações</a></li>
+			<li><a href="solicitacao_lista.php?lista=4">Todas as Solicitações</a></li>
+			<li><a href="solicitacao_lista.php?lista=0">Pendentes</a></li>
+			<li><a href="solicitacao_lista.php?lista=1">Aprovadas</a></li>
+			<li><a href="solicitacao_lista.php?lista=2">Concluídas</a></li>
+            <li><a href="solicitacao_lista.php?lista=3">Canceladas</a></li>
 		</ul>
 	</li>
+    <?php if($_SESSION['nivel'] <=1){ ?>
 	<li><a href="#">Entrada/Saída</a>
 		<ul>
 			<li><a href='entrada.php'>Entrada de Material</a></li>
-			<li><a href="#">Saída de Material</a></li>
+			<li><a href="solicitacao_lista.php?lista=1">Saída de Material</a></li>
 		</ul>
-	</li><?php if($_SESSION['nivel'] <=1){ ?>
+	</li><?php } if($_SESSION['nivel'] ==0){ ?>
 	<li><a href="#">Relatórios</a></li><?php } ?>
 </ul>
 </div>
