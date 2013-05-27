@@ -207,6 +207,11 @@ h2 {
 	padding-bottom: 0; 
 }
 
+h1 {
+	margin-bottom: 0; 
+	padding-bottom: 2px; 
+}
+
 #botaovermelho{
 	background-color:#FF8080;
 	border-color: #900;
