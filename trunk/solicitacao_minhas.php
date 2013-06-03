@@ -5,7 +5,7 @@ mb_http_output("iso-8859-1");
 <?php
 require_once("classes/solicitacao.class.php");
 
-$permiteacesso=1; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
+$permiteacesso=2; // nivel de permissao minimo de acesso a pagina (0 adm, 1 almox, 2 solic)
 
 if(isset($_GET['lista'])){
 	$tipo = $_GET['lista'];
