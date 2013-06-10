@@ -110,7 +110,7 @@ if($tipo==0){ ?>
 		<td><?php echo $linha['dt_solicitacao'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
         <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a><a href='solicitacao_visualizar.php?acao=aprovar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a></td> 
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a><?php if($_SESSION['nivel'] <=1){ ?><a href='solicitacao_visualizar.php?acao=aprovar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_aprovar.png" ></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_reaprovar.png" ></a><?php } ?></td> 
 	  </tr></tr></tr><?php } ?><th colspan="5"></th></thead></tbody>
 </table>
     
@@ -126,7 +126,7 @@ if($tipo==0){ ?>
         <td><?php echo $linha['dt_aprovado'] ?></td>
 		<td width='15%'><?php echo $linha['nm_usuario'] ?></td>
          <td width='15%'><?php echo $linha['nm_setor'] ?></td>
-		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <a href='solicitacao_visualizar.php?acao=liberar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a></td>
+		<td align="center" width='25%'><a href='solicitacao_visualizar.php?codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_visualizar.png"></a> <?php if($_SESSION['nivel'] <=1){ ?><a href='solicitacao_visualizar.php?acao=liberar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_liberar.png"></a> <a href='solicitacao_visualizar.php?acao=cancelar&codigo=<?php echo $linha['cd_solicitacao']?>'><img border=0 src="imagens/icone_cancelar.png" ></a><?php } ?></td>
 	</tr>
 	</tr><?php } ?><th colspan="6"></th></tbody>
 </table>

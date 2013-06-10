@@ -56,7 +56,10 @@ if($_SESSION["cesta"][$indice]["QTDE"] <> 0){
 	<?php  } } unset($_SESSION["cesta"]);
 	$_SESSION['qtde_itens']=0; ?>
 </table>
+
+<input type="button" value="Finalizar Pedido" onClick="enviar('F');"></p></form>
 </diV>
+<hr size="1">
 <?php include("_footer.php"); ?>
 </p>
 <p>&nbsp;</p>
