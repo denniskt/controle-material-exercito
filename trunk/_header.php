@@ -55,16 +55,23 @@ if($_SESSION['nivel'] > $permiteacesso){
          	<li><a href='fornecedor.php'>Fornecedor</a></li>
          	<li><a href='material.php'>Material</a></li>
 		</ul>
-	</li> <?php } ?>
+	</li> 
 	<li><a href='#'>Solicitações</a>
 		<ul>
-        	<li><a href='solicitacao.php'>Nova Solicitação</a></li>
-			<li><a href='solicitacao_minhas.php'>Minhas Solicitações</a></li>
 			<li><a href="solicitacao_lista.php?lista=4">Todas as Solicitações</a></li>
 			<li><a href="solicitacao_lista.php?lista=0">Pendentes</a></li>
 			<li><a href="solicitacao_lista.php?lista=1">Aprovadas</a></li>
 			<li><a href="solicitacao_lista.php?lista=2">Concluídas</a></li>
             <li><a href="solicitacao_lista.php?lista=3">Canceladas</a></li>
+		</ul>
+	</li><?php } ?>
+    <li><a href='#'>Minhas Solicitações</a>
+		<ul>
+        	<li><a href='solicitacao.php'>Nova Solicitação</a></li>
+			<li><a href='solicitacao_minhas.php?lista=4'>Minhas Solicitações</a></li>
+			<li><a href="solicitacao_minhas.php?lista=0">Pendentes</a></li>
+			<li><a href="solicitacao_minhas.php?lista=1">Aprovadas</a></li>
+			<li><a href="solicitacao_minhas.php?lista=4">Todas</a></li>
 		</ul>
 	</li>
     <?php if($_SESSION['nivel'] <=1){ ?>
